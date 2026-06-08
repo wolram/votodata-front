@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="site.css"><link rel="icon" type="image/png" href="assets/brasao.png">
 <style>
   body{min-height:100vh}
   .auth{display:grid;grid-template-columns:1.05fr .95fr;min-height:100vh}
@@ -195,7 +195,7 @@
     e.preventDefault(); 
     const email = fL.querySelector('input[type="email"]').value;
     sendLead({ type: 'login_attempt', email, msg: 'Tentativa de login no protótipo' });
-    alert('Protótipo de login — sua tentativa foi registrada para acompanhamento.'); 
+    alert('Solicitação de acesso registrada. Nossa equipe de segurança validará suas credenciais e entrará em contato em breve.'); 
   });
   fS.addEventListener('submit', function (e) {
     e.preventDefault();
