@@ -1,0 +1,161 @@
+/* ============================================================
+   VotoData — Design Tokens (source of truth)
+   Tema dark-first. Light surfaces para admin/relatórios.
+   ============================================================ */
+
+:root {
+  /* ---- BRAND / PRIMARY — Cyan ramp (#06B6D4) ---- */
+  --vd-cyan-50:  #ECFEFF;
+  --vd-cyan-100: #CFF9FE;
+  --vd-cyan-200: #A5F0FC;
+  --vd-cyan-300: #67E3F9;
+  --vd-cyan-400: #22D0EE;
+  --vd-cyan-500: #06B6D4; /* PRIMÁRIA */
+  --vd-cyan-600: #0891B2; /* AZUL ESCURO */
+  --vd-cyan-700: #0E7490;
+  --vd-cyan-800: #155E75;
+  --vd-cyan-900: #164E63;
+
+  /* ---- ACCENT — Orange ramp (#F59E0B) ---- */
+  --vd-amber-300: #FCD34D;
+  --vd-amber-400: #FBBF24;
+  --vd-amber-500: #F59E0B; /* ACENTO */
+  --vd-amber-600: #D97706;
+  --vd-amber-700: #B45309;
+
+  /* ---- NEUTRALS / INK — navy → slate ---- */
+  --vd-ink-950: #080D1A; /* canvas mais profundo */
+  --vd-ink-900: #0F172A; /* app background  (brand) */
+  --vd-ink-850: #131B2E; /* superfície elevada (brand) */
+  --vd-ink-800: #1A2336; /* card */
+  --vd-ink-750: #1E293B; /* card hover / raised */
+  --vd-ink-700: #222A3D; /* borda forte (brand) */
+  --vd-ink-600: #334155; /* borda / divisória */
+  --vd-ink-500: #475569; /* desabilitado */
+  --vd-ink-400: #64748B; /* texto mudo */
+  --vd-ink-300: #94A3B8; /* texto secundário */
+  --vd-ink-200: #CBD5E1;
+  --vd-ink-100: #E2E8F0;
+  --vd-ink-50:  #F1F5F9;
+  --vd-white:   #F8FAFC;
+  --vd-pure-white: #FFFFFF;
+
+  /* ---- SEMANTIC ---- */
+  --vd-success: #22C55E;
+  --vd-success-bg: rgba(34, 197, 94, 0.12);
+  --vd-warning: #F59E0B;
+  --vd-warning-bg: rgba(245, 158, 11, 0.12);
+  --vd-danger:  #EF4444;
+  --vd-danger-bg: rgba(239, 68, 68, 0.12);
+  --vd-info:    #3B82F6;
+  --vd-info-bg: rgba(59, 130, 246, 0.12);
+
+  /* ---- DATA SERIES (categórico, dark-safe) ---- */
+  --vd-series-1: #06B6D4; /* cyan   */
+  --vd-series-2: #F59E0B; /* orange */
+  --vd-series-3: #3B82F6; /* blue   */
+  --vd-series-4: #22C55E; /* green  */
+  --vd-series-5: #A78BFA; /* violet */
+  --vd-series-6: #F472B6; /* pink   */
+  --vd-series-7: #2DD4BF; /* teal   */
+  --vd-series-8: #FACC15; /* yellow */
+
+  /* ---- SEMANTIC SURFACE ALIASES (dark default) ---- */
+  --bg:            var(--vd-ink-950);
+  --surface:       var(--vd-ink-900);
+  --surface-raised:var(--vd-ink-850);
+  --surface-card:  var(--vd-ink-800);
+  --surface-hover: var(--vd-ink-750);
+  --border:        var(--vd-ink-700);
+  --border-soft:   var(--vd-ink-600);
+  --text:          var(--vd-white);
+  --text-secondary:var(--vd-ink-300);
+  --text-muted:    var(--vd-ink-400);
+  --text-disabled: var(--vd-ink-500);
+  --primary:       var(--vd-cyan-500);
+  --primary-hover: var(--vd-cyan-400);
+  --primary-press: var(--vd-cyan-600);
+  --accent:        var(--vd-amber-500);
+  --on-primary:    #06283B;
+  --focus-ring:    rgba(6, 182, 212, 0.45);
+
+  /* ---- TYPOGRAPHY ---- */
+  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+
+  --text-display-2xl: 60px;
+  --text-display-xl:  48px;
+  --text-display-lg:  38px;
+  --text-h1: 30px;
+  --text-h2: 24px;
+  --text-h3: 20px;
+  --text-lg: 18px;
+  --text-base: 16px;
+  --text-sm: 14px;
+  --text-xs: 12px;
+  --text-2xs: 11px;
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  --tracking-tight: -0.02em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.04em;
+  --tracking-wider: 0.12em;
+
+  /* ---- SPACING (base 4) ---- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* ---- RADIUS ---- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ---- ELEVATION ---- */
+  --shadow-1: 0 1px 2px rgba(0,0,0,0.45);
+  --shadow-2: 0 4px 14px rgba(0,0,0,0.40);
+  --shadow-3: 0 14px 38px rgba(0,0,0,0.50);
+  --glow-cyan: 0 0 0 1px rgba(6,182,212,0.35), 0 8px 28px rgba(6,182,212,0.18);
+  --glow-amber: 0 0 0 1px rgba(245,158,11,0.35), 0 8px 28px rgba(245,158,11,0.16);
+
+  /* ---- MOTION ---- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --dur-slow: 360ms;
+}
+
+/* Light surface set — para admin/relatórios. Aplique data-theme="light" num container. */
+[data-theme="light"] {
+  --bg: #F1F5F9;
+  --surface: #FFFFFF;
+  --surface-raised: #FFFFFF;
+  --surface-card: #FFFFFF;
+  --surface-hover: #F1F5F9;
+  --border: #E2E8F0;
+  --border-soft: #CBD5E1;
+  --text: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-disabled: #94A3B8;
+  --on-primary: #FFFFFF;
+}

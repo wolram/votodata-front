@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entrar — VOTODATA</title>
+<meta name="description" content="Acesso à plataforma VotoData.">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  body{min-height:100vh}
+  .auth{display:grid;grid-template-columns:1.05fr .95fr;min-height:100vh}
+  @media (max-width:880px){.auth{grid-template-columns:1fr}}
+  /* painel de marca */
+  .auth__brandpane{position:relative;padding:48px;display:flex;flex-direction:column;justify-content:space-between;
+    border-right:1px solid var(--border);overflow:hidden;
+    background:radial-gradient(700px 420px at 20% 0%, rgba(6,182,212,.16), transparent 60%),
+      radial-gradient(560px 380px at 90% 100%, rgba(245,158,11,.10), transparent 60%),linear-gradient(160deg,var(--ink-900),var(--ink-980))}
+  .auth__brandpane::after{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;
+    background-image:linear-gradient(rgba(148,163,184,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.05) 1px,transparent 1px);background-size:48px 48px;
+    -webkit-mask-image:radial-gradient(700px 500px at 30% 20%,#000,transparent 75%);mask-image:radial-gradient(700px 500px at 30% 20%,#000,transparent 75%)}
+  @media (max-width:880px){.auth__brandpane{display:none}}
+  .auth__brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+  .auth__brand img{width:42px;height:42px;border-radius:50%}
+  .auth__wm{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.01em}
+  .auth__wm b{color:var(--vd-cyan-400)}
+  .auth__pitch{position:relative;z-index:1;max-width:34ch}
+  .auth__pitch h2{font-family:var(--font-display);font-weight:600;font-size:clamp(26px,2.8vw,34px);letter-spacing:-.018em;line-height:1.15;text-wrap:balance}
+  .auth__pitch p{color:var(--text-sec);margin-top:14px}
+  .auth__chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+  .auth__foot{position:relative;z-index:1;font-family:var(--font-mono);font-size:11.5px;color:var(--text-mut);letter-spacing:.04em}
+  /* painel do formulário */
+  .auth__formpane{display:flex;align-items:center;justify-content:center;padding:40px 28px}
+  .authcard{width:100%;max-width:400px}
+  .authcard__back{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--text-mut);margin-bottom:34px}
+  .authcard__back:hover{color:var(--vd-cyan-300)}
+  .authcard__back svg{width:15px;height:15px}
+  .authcard h1{font-family:var(--font-display);font-weight:700;font-size:28px;letter-spacing:-.02em}
+  .authcard>.sub{color:var(--text-sec);margin-top:8px;font-size:15px}
+  .tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:4px;margin:26px 0 22px}
+  .tabs button{flex:1;border:0;background:none;color:var(--text-sec);font-weight:600;font-size:14px;padding:9px;border-radius:7px;transition:all .18s}
+  .tabs button.on{background:var(--primary);color:var(--on-primary)}
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:13px;color:var(--text-sec);margin-bottom:7px;font-weight:500}
+  .inwrap{position:relative}
+  .inwrap>svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--text-mut)}
+  .field input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);
+    color:var(--text);font-family:var(--font-body);font-size:15px;padding:12px 14px 12px 42px;transition:border-color .2s,box-shadow .2s}
+  .field input::placeholder{color:var(--text-disabled,#475569)}
+  .field input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--focus-ring)}
+  .eye{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--text-mut);padding:8px;display:grid;place-items:center}
+  .eye svg{width:18px;height:18px}
+  .row{display:flex;align-items:center;justify-content:space-between;margin:6px 0 20px;font-size:13px}
+  .row label{display:flex;align-items:center;gap:8px;color:var(--text-sec);cursor:pointer}
+  .row a{color:var(--vd-cyan-300)}
+  .divider-or{display:flex;align-items:center;gap:14px;margin:24px 0;color:var(--text-mut);font-size:12px;font-family:var(--font-mono)}
+  .divider-or::before,.divider-or::after{content:"";flex:1;height:1px;background:var(--border)}
+  .authalt{display:flex;flex-direction:column;gap:10px}
+  .authcard__note{text-align:center;font-size:13.5px;color:var(--text-mut);margin-top:24px}
+  .authcard__note a{color:var(--vd-cyan-300);font-weight:600}
+  .hide{display:none}
+</style>
+</head>
+<body data-page="login">
+<div class="auth">
+  <!-- MARCA -->
+  <div class="auth__brandpane">
+    <a class="auth__brand" href="index.html"><img src="assets/brasao.png" alt=""><span class="auth__wm">VOTO<b>DATA</b></span></a>
+    <div class="auth__pitch">
+      <h2>Decisões de campanha com dados reais.</h2>
+      <p>Inteligência territorial, simulação proporcional e sentimento da chapa — num só lugar, com proveniência auditável.</p>
+      <div class="auth__chips">
+        <span class="tag">Município &amp; zona</span>
+        <span class="tag">DeputyOptimizer</span>
+        <span class="tag tag--amber">Compliance TSE</span>
+      </div>
+    </div>
+    <div class="auth__foot">© 2026 VOTODATA · Inteligência Eleitoral · fontes públicas oficiais</div>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <div class="auth__formpane">
+    <div class="authcard">
+      <a class="authcard__back" href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>voltar ao site</a>
+      <h1 id="authTitle">Entrar na plataforma</h1>
+      <p class="sub" id="authSub">Acesse seu painel de inteligência eleitoral.</p>
+
+      <div class="tabs">
+        <button id="tabLogin" class="on" type="button">Entrar</button>
+        <button id="tabSignup" type="button">Solicitar acesso</button>
+      </div>
+
+      <!-- LOGIN -->
+      <form id="formLogin">
+        <div class="field">
+          <label for="lemail">E-mail</label>
+          <div class="inwrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <input id="lemail" type="email" placeholder="voce@dominio.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="lpass">Senha</label>
+          <div class="inwrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            <input id="lpass" type="password" placeholder="••••••••" required>
+            <button class="eye" type="button" aria-label="Mostrar senha" data-eye="lpass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+          </div>
+        </div>
+        <div class="row">
+          <label><input type="checkbox" style="accent-color:var(--primary)"> Lembrar de mim</label>
+          <a href="#">Esqueci a senha</a>
+        </div>
+        <button class="btn btn--primary btn--lg btn--block" type="submit">Entrar</button>
+      </form>
+
+      <!-- SOLICITAR ACESSO -->
+      <form id="formSignup" class="hide">
+        <div class="field">
+          <label for="snome">Nome</label>
+          <div class="inwrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/></svg>
+            <input id="snome" placeholder="Seu nome completo" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="semail">E-mail corporativo</label>
+          <div class="inwrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            <input id="semail" type="email" placeholder="voce@dominio.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="sorg">Campanha / partido / agência</label>
+          <div class="inwrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 9h.01M15 9h.01M9 13h.01M15 13h.01"/></svg>
+            <input id="sorg" placeholder="Sua organização">
+          </div>
+        </div>
+        <button class="btn btn--primary btn--lg btn--block" type="submit">Solicitar acesso</button>
+      </form>
+
+      <div class="divider-or">ou</div>
+      <div class="authalt">
+        <a class="btn btn--ghost btn--lg btn--block" href="acesso.html">Tenho um código de acesso</a>
+      </div>
+
+      <p class="authcard__note" id="authNote">Ainda não opera com a VotoData? <a href="contato.html">Agende uma demo</a></p>
+    </div>
+  </div>
+</div>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(32 28)" fill="none" stroke="#06B6D4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="18" width="32" height="26" rx="4"/><path d="M9 18v-5a9 9 0 0 1 18 0v5" stroke="#F59E0B"/><circle cx="18" cy="30" r="3"/></g></svg>
+</template>
+
+<script>
+(function () {
+  var tL = document.getElementById('tabLogin'), tS = document.getElementById('tabSignup');
+  var fL = document.getElementById('formLogin'), fS = document.getElementById('formSignup');
+  var title = document.getElementById('authTitle'), sub = document.getElementById('authSub'), note = document.getElementById('authNote');
+  function show(login) {
+    tL.classList.toggle('on', login); tS.classList.toggle('on', !login);
+    fL.classList.toggle('hide', !login); fS.classList.toggle('hide', login);
+    title.textContent = login ? 'Entrar na plataforma' : 'Solicitar acesso';
+    sub.textContent = login ? 'Acesse seu painel de inteligência eleitoral.' : 'Cada operação é única — estruturamos seu acesso após um diagnóstico.';
+    note.innerHTML = login ? 'Ainda não opera com a VotoData? <a href="contato.html">Agende uma demo</a>' : 'Já tem conta? <a href="#" id="goLogin">Entrar</a>';
+  }
+  tL.addEventListener('click', function () { show(true); });
+  tS.addEventListener('click', function () { show(false); });
+  note.addEventListener('click', function (e) { if (e.target.id === 'goLogin') { e.preventDefault(); show(true); } });
+
+  document.querySelectorAll('.eye').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var inp = document.getElementById(b.dataset.eye);
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+  });
+
+  // Protótipo: o backend (api.votodata.net) fará a autenticação real.
+  fL.addEventListener('submit', function (e) { e.preventDefault(); alert('Protótipo de login — conectar a api.votodata.net para autenticação real.'); });
+  fS.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var nome = document.getElementById('snome').value, email = document.getElementById('semail').value, org = document.getElementById('sorg').value;
+    window.location.href = 'mailto:contato@votodata.net?subject=' + encodeURIComponent('Solicitação de acesso — ' + org) +
+      '&body=' + encodeURIComponent('Nome: ' + nome + '\nE-mail: ' + email + '\nOrganização: ' + org);
+  });
+})();
+</script>
+</body>
+</html>

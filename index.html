@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOTODATA — Decisões de campanha com dados reais. Não com feeling.</title>
+<meta name="description" content="Transforme dados oficiais do TSE em ações claras. 5.570 municípios com agregação por município e zona. Compliance nativo com a Resolução TSE 23.732/2024.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="mapa.css">
+<style>
+  .globe-home{position:relative;display:flex;align-items:center;justify-content:center;min-height:360px}
+  .globe-home::before{content:"";position:absolute;width:112%;height:112%;border-radius:50%;
+    background:radial-gradient(circle at 50% 42%, rgba(6,182,212,.18), rgba(245,158,11,.05) 46%, transparent 68%);filter:blur(8px);pointer-events:none}
+  .globe-home canvas[data-vd-globe]{position:relative;width:min(440px,80vw);aspect-ratio:1/1;touch-action:none;cursor:grab}
+  .globe-home canvas[data-vd-globe]:active{cursor:grabbing}
+  @media (max-width:1000px){.globe-home{order:-1;min-height:300px}}
+</style>
+</head>
+<body data-page="home">
+
+<!-- ============ HERO ============ -->
+<section class="hero" data-screen-label="Home — Hero">
+  <div class="wrap hero__inner">
+    <span class="pill"><span class="dot dot--live"></span>Sistema Operacional de Inteligência Eleitoral · D-122 · 2026</span>
+    <h1 class="display">Decisões de campanha com dados reais. <span class="cy">Não com feeling.</span></h1>
+    <p class="lead">Transforme dados oficiais do TSE em ações claras. 5.570 municípios, com agregação por município e zona no pipeline ativo. Compliance nativo com a Resolução TSE 23.732/2024.</p>
+    <div class="hero__cta">
+      <a class="btn btn--primary btn--lg" href="mailto:contato@votodata.net?subject=Demo%20VotoData%202026"><i data-i="calendar"></i>Agendar demonstração de 15 minutos</a>
+      <a class="btn btn--ghost btn--lg" href="candidatos.html">Conhecer a plataforma <i data-i="arrowRight"></i></a>
+    </div>
+    <div class="statstrip" data-reveal>
+      <div class="statstrip__c"><span class="statstrip__v cy">5.570</span><span class="statstrip__l">Municípios cobertos</span></div>
+      <div class="statstrip__c"><span class="statstrip__v">Zona</span><span class="statstrip__l">Granularidade ativa</span></div>
+      <div class="statstrip__c"><span class="statstrip__v">TSE</span><span class="statstrip__l">Fonte eleitoral</span></div>
+      <div class="statstrip__c"><span class="statstrip__v am">Auditável</span><span class="statstrip__l">Proveniência</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DEMO VIDEO ============ -->
+<section class="section section--tight" id="demo">
+  <div class="wrap">
+    <div class="section-head" style="margin-inline:auto;text-align:center;align-items:center" data-reveal>
+      <span class="eyebrow eyebrow--plain">Demo</span>
+      <h2 class="h2">Veja a plataforma em ação.</h2>
+    </div>
+    <div class="video" data-reveal>
+      <button class="video__btn" id="playVideo" aria-label="Reproduzir vídeo">
+        <span class="video__thumb"></span>
+        <span class="video__play"><i data-i="play"></i></span>
+        <span class="video__cap mono">VOTODATA · institucional 2026</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ O PROBLEMA ============ -->
+<section class="section" id="problema">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow eyebrow--amber">O problema</span>
+      <h2 class="h2">Campanhas perdem não por falta de voto.<br>Perdem por falta de leitura.</h2>
+    </div>
+    <div class="grid g3" style="margin-top:48px">
+      <div class="card card--glow" data-reveal>
+        <div class="card__ico card__ico--amber"><i data-i="folder"></i></div>
+        <h3 class="h3">Dados espalhados em CSV, WhatsApp, PDFs e planilhas</h3>
+        <p>Pesquisas em PDF, histórico no Excel, briefing no WhatsApp, dados do TSE em CSV Latin-1. Nenhum lugar único. Nenhuma decisão rápida.</p>
+      </div>
+      <div class="card card--glow" data-reveal>
+        <div class="card__ico card__ico--amber"><i data-i="clock"></i></div>
+        <h3 class="h3">Análises que chegam tarde demais</h3>
+        <p>Quando a análise fica pronta, a janela de decisão já fechou. Campanha que decide por feeling perde território para quem tem dado.</p>
+      </div>
+      <div class="card card--glow" data-reveal>
+        <div class="card__ico card__ico--danger"><i data-i="gavel"></i></div>
+        <h3 class="h3">Risco jurídico invisível com IA em campanha</h3>
+        <p>A Resolução TSE nº 23.732/2024 mudou as regras para IA em campanha. Quem não monitora compliance ativamente, corre risco de cassação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ============ A SOLUÇÃO — 3 MODOS ============ -->
+<section class="section" id="solucao">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">A solução</span>
+      <h2 class="h2">Três modos de operação.<br>Um só objetivo: <span class="cy">clareza para decidir.</span></h2>
+      <p class="lead">Candidato não compra dashboard. Partido não compra tecnologia. Agência não compra gráfico. Todos compram a mesma coisa: clareza para a próxima decisão.</p>
+    </div>
+    <div class="aud" style="margin-top:48px">
+      <a class="aud__card" href="candidatos.html" data-reveal>
+        <div class="aud__ico"><i data-i="user"></i></div>
+        <span class="aud__ey">Para candidatos</span>
+        <h3 class="h3">Painel do Candidato</h3>
+        <p class="sec">Saiba por município e zona eleitoral onde você cresce, onde perde e qual a próxima melhor ação. Relatório executivo do seu território em 24h.</p>
+        <div class="aud__feats">
+          <span class="tag tag--mut">Mapa por município/zona</span>
+          <span class="tag tag--mut">Simulador de coligação</span>
+          <span class="tag tag--mut">Sentimento</span>
+          <span class="tag tag--mut">App iOS</span>
+        </div>
+        <span class="btn btn--link" style="margin-top:8px">Ver para candidatos <i data-i="arrowRight"></i></span>
+      </a>
+      <a class="aud__card" href="partidos.html" data-reveal>
+        <div class="aud__ico"><i data-i="bank"></i></div>
+        <span class="aud__ey">Para partidos</span>
+        <h3 class="h3">Party Command Center</h3>
+        <p class="sec">Defina coligações pela matemática (DeputyOptimizer), não pela amizade. Quociente eleitoral, partidário, sobras e puxadores de voto para 27 UFs.</p>
+        <div class="aud__feats">
+          <span class="tag tag--mut">DeputyOptimizer</span>
+          <span class="tag tag--mut">Nominata</span>
+          <span class="tag tag--mut">Quociente QE/QP</span>
+          <span class="tag tag--mut">Projeção de cadeiras</span>
+        </div>
+        <span class="btn btn--link" style="margin-top:8px">Ver para partidos <i data-i="arrowRight"></i></span>
+      </a>
+      <a class="aud__card" href="agencies.html" data-reveal>
+        <div class="aud__ico"><i data-i="users"></i></div>
+        <span class="aud__ey">Para agências</span>
+        <h3 class="h3">Agency Intelligence Hub</h3>
+        <p class="sec">Entregue dados auditáveis e pare de perder tempo limpando CSV do TSE. Ingestão TSE streaming, relatório exportável, compliance-first.</p>
+        <div class="aud__feats">
+          <span class="tag tag--mut">Multi-candidato</span>
+          <span class="tag tag--mut">Export PDF</span>
+          <span class="tag tag--mut">API REST</span>
+          <span class="tag tag--mut">Alertas Slack</span>
+        </div>
+        <span class="btn btn--link" style="margin-top:8px">Ver para agências <i data-i="arrowRight"></i></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KILLER FEATURE — SIMULADOR ============ -->
+<section class="section" id="simulador">
+  <div class="wrap">
+    <div class="split">
+      <div data-reveal>
+        <span class="eyebrow eyebrow--amber">Killer feature</span>
+        <h2 class="h2" style="margin-top:16px">Simulador de Cadeiras.<br>O <span class="am">DeputyOptimizer.</span></h2>
+        <p class="lead" style="margin-top:20px">Simule quociente eleitoral e partidário para as 27 UFs. Teste coligações, redistribua votos, projete cadeiras e identifique puxadores antes de fechar a nominata.</p>
+        <ul class="checklist">
+          <li><span class="ck"><i data-i="check"></i></span>Cálculo de QE/QP para Dep. Estadual e Federal</li>
+          <li><span class="ck"><i data-i="check"></i></span>Distribuição de sobras — maiores médias</li>
+          <li><span class="ck"><i data-i="check"></i></span>Otimizador guloso de coligações</li>
+          <li><span class="ck"><i data-i="check"></i></span>Comparação de cenários em tempo real</li>
+          <li><span class="ck"><i data-i="check"></i></span>Alerta de concentração excessiva de votos</li>
+        </ul>
+        <a class="btn btn--ghost" style="margin-top:30px" href="partidos.html">Ver simulador <i data-i="arrowRight"></i></a>
+      </div>
+      <div class="split__media" data-reveal>
+        <!-- mock simulador -->
+        <div class="sim panel">
+          <div class="sim__head">
+            <div>
+              <div class="sim__title mono">DeputyOptimizer · SP · Dep. Estadual</div>
+            </div>
+            <span class="pill" style="padding:5px 11px"><span class="dot dot--live"></span>Simulando</span>
+          </div>
+          <div class="sim__metrics">
+            <div class="sim__m"><span class="sim__mv">312.847</span><span class="sim__ml">Quociente Eleitoral</span></div>
+            <div class="sim__m"><span class="sim__mv">89.527</span><span class="sim__ml">Quociente Partidário</span></div>
+            <div class="sim__m"><span class="sim__mv cy">4</span><span class="sim__ml">Cadeiras projetadas</span></div>
+            <div class="sim__m"><span class="sim__mv am">1</span><span class="sim__ml">Sobras disponíveis</span></div>
+          </div>
+          <div class="sim__bars">
+            <div class="simbar"><span class="simbar__n">Candidato A</span><span class="simbar__track"><span class="simbar__fill" style="width:100%"></span></span><span class="simbar__v">148.200</span><span class="simbar__st simbar__st--ok">Eleito</span></div>
+            <div class="simbar"><span class="simbar__n">Candidato B</span><span class="simbar__track"><span class="simbar__fill" style="width:62%"></span></span><span class="simbar__v">92.400</span><span class="simbar__st simbar__st--ok">Eleito</span></div>
+            <div class="simbar"><span class="simbar__n">Candidato C</span><span class="simbar__track"><span class="simbar__fill simbar__fill--am" style="width:50%"></span></span><span class="simbar__v">74.100</span><span class="simbar__st simbar__st--am">Sobra</span></div>
+            <div class="simbar"><span class="simbar__n">Candidato D</span><span class="simbar__track"><span class="simbar__fill simbar__fill--mut" style="width:34%"></span></span><span class="simbar__v">51.200</span><span class="simbar__st simbar__st--risk">Risco</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MAPA DE INFLUÊNCIA ============ -->
+<section class="section" id="mapa">
+  <div class="wrap">
+    <div class="section-head" data-reveal style="max-width:760px">
+      <span class="eyebrow">Inteligência territorial</span>
+      <h2 class="h2">Mapa de Influência Regional</h2>
+      <p class="lead">Eleitorado e população por unidade federativa, dos 5.570 municípios à zona eleitoral.
+        Passe o mouse, clique num estado e troque a métrica em tempo real. Fonte oficial, proveniência auditável.</p>
+    </div>
+    <div class="vdmap vdmap--section" data-vd-map data-variant="section" data-metric="eleitores" data-palette="heat" data-reveal style="margin-top:38px">
+      <div class="vdmap-layout">
+        <div class="vdmap-stage panel" data-vdmap-stage></div>
+        <div class="vdmap-aside" data-vdmap-aside></div>
+      </div>
+    </div>
+    <div class="flex aic wrap-gap jcb" style="margin-top:26px">
+      <div class="flex wrap-gap">
+        <span class="tag"><i data-i="map" style="width:15px"></i>Mapa por município e zona</span>
+        <span class="tag"><i data-i="trendingUp" style="width:15px"></i>Score de oportunidade</span>
+        <span class="tag"><i data-i="radar" style="width:15px"></i>Radar de adversários</span>
+      </div>
+      <a class="btn btn--link" href="mapa.html">Abrir mapa completo <i data-i="arrowRight"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPLIANCE ============ -->
+<section class="section" id="compliance">
+  <div class="wrap">
+    <div class="split">
+      <div data-reveal>
+        <span class="eyebrow"><i data-i="shield" style="width:15px;color:var(--vd-cyan-400)"></i>Compliance &amp; IA Eleitoral</span>
+        <h2 class="h2" style="margin-top:16px">Toda inteligência com fonte, data e nível de confiança.</h2>
+        <p class="lead" style="margin-top:18px">A Resolução TSE nº 23.732/2024 exige aviso obrigatório de uso de IA e proíbe deepfakes em campanha. A VotoData trata compliance como camada nativa — não como feature lateral. Toda recomendação gerada por IA tem hipótese, método e responsável.</p>
+      </div>
+      <div data-reveal>
+        <div class="grid g2" style="gap:14px">
+          <div class="checkcard"><span class="ck"><i data-i="check"></i></span>Rastreabilidade completa de dados</div>
+          <div class="checkcard"><span class="ck"><i data-i="check"></i></span>Trilha de auditoria de prompts</div>
+          <div class="checkcard"><span class="ck"><i data-i="check"></i></span>Rotulagem obrigatória de IA</div>
+          <div class="checkcard"><span class="ck"><i data-i="check"></i></span>Fontes públicas oficiais exclusivamente</div>
+          <div class="checkcard"><span class="ck"><i data-i="check"></i></span>Logs de aprovação e versão</div>
+          <div class="checkcard"><span class="ck"><i data-i="check"></i></span>Zero microtargeting individual</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESEARCH UNIT ============ -->
+<section class="section" id="research">
+  <div class="wrap">
+    <div class="split">
+      <div class="globe-home" data-reveal aria-hidden="true">
+        <canvas data-vd-globe></canvas>
+      </div>
+      <div data-reveal>
+        <span class="eyebrow eyebrow--amber"><i data-i="model" style="width:15px"></i>VotoData Research Unit</span>
+        <h2 class="h2" style="margin-top:16px">A inteligência global de previsão eleitoral, decodificada.</h2>
+        <p class="lead" style="margin-top:18px">A nossa unidade de pesquisa destrincha as arquiteturas de Machine Learning das consultorias de elite — FiveThirtyEight, YouGov, The Economist — aplicadas ao superciclo de 2026 no Brasil, EUA e Europa.</p>
+        <div class="flex wrap-gap" style="margin-top:26px">
+          <a class="btn btn--primary btn--lg" href="research.html"><i data-i="model"></i>Conhecer o Research Unit</a>
+          <a class="btn btn--ghost btn--lg" href="../Research Dashboard 2026.html"><i data-i="dashboard"></i>Abrir o dashboard 2026</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESE / MANIFESTO ============ -->
+<section class="section" id="manifesto">
+  <div class="wrap">
+    <div class="manifesto panel" data-reveal>
+      <span class="eyebrow eyebrow--amber">Nossa tese</span>
+      <blockquote class="manifesto__q">“Campanhas não perdem apenas por falta de voto. Perdem por falta de <span class="cy">leitura.</span>”</blockquote>
+      <p class="sec" style="max-width:62ch">A VotoData nasce para transformar dados oficiais, pesquisas, território e modelagem estatística em decisões claras. Não para substituir estratégia política — mas para dar a ela uma base mais precisa.</p>
+      <a class="btn btn--link" href="produto.html#manifesto">Ler o manifesto completo <i data-i="arrowRight"></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="section">
+  <div class="wrap">
+    <div class="cta-banner" data-reveal>
+      <span class="eyebrow eyebrow--plain">Dados disponíveis agora</span>
+      <h2 class="h2">Esses dados já estão disponíveis para sua campanha.</h2>
+      <p class="lead" style="text-align:center">Agendamos 15 minutos e mostramos o relatório do seu território rodando ao vivo. Sem compromisso.</p>
+      <div class="cta">
+        <a class="btn btn--primary btn--lg" href="mailto:contato@votodata.net?subject=Demo%20VotoData%202026"><i data-i="calendar"></i>Agendar demonstração de 30 min</a>
+        <a class="btn btn--ghost btn--lg" href="contato.html"><i data-i="article"></i>Solicitar relatório</a>
+      </div>
+    </div>
+    <p class="disclaimer" style="margin:32px auto 0;text-align:center"><b>Disclaimer.</b> Todas as informações disponíveis no VotoData são extraídas exclusivamente de fontes públicas oficiais. A plataforma não recomenda, ranqueia nem sugere candidatos ou partidos. O objetivo é oferecer transparência através de dados, nunca interferir na decisão do eleitor.</p>
+  </div>
+</section>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(30 28)" fill="none" stroke="#06B6D4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 38 L14 26 L22 32 L40 10" stroke="#22D0EE"/><path d="M30 10 H40 V20" stroke="#F59E0B"/><path d="M2 44 L40 44" stroke="#475569"/></g></svg>
+</template>
+
+<script src="site.js"></script>
+<script src="ds/globe.js"></script>
+<script src="mapa.data.js"></script>
+<script src="mapa.munis.js"></script>
+<script src="mapa.js"></script>
+<script>
+  document.getElementById('playVideo')?.addEventListener('click', function () {
+    var f = document.createElement('iframe');
+    f.src = 'https://www.youtube.com/embed/sGoSF3VbhhI?rel=0&autoplay=1';
+    f.title = 'VOTODATA — vídeo institucional';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    f.allowFullscreen = true;
+    f.className = 'video__iframe';
+    this.replaceWith(f);
+  });
+</script>
+</body>
+</html>

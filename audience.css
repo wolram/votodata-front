@@ -1,0 +1,109 @@
+/* ============================================================
+   VotoData — páginas de público (candidatos / partidos / agências)
+   Layouts + variações. Carrega depois de site.css.
+   ============================================================ */
+
+/* ---------- HERO da página de público ---------- */
+.ahero{padding-top:calc(var(--header-h) + 56px);padding-bottom:24px}
+.ahero__eyebrow{margin-bottom:22px}
+.ahero .display{font-size:clamp(34px,5vw,56px)}
+.ahero .lead{margin-top:22px}
+.ahero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+
+/* variação CENTRADO (default) */
+body[data-hero="centrado"] .ahero__inner{max-width:880px;margin-inline:auto;text-align:center;
+  display:flex;flex-direction:column;align-items:center}
+body[data-hero="centrado"] .ahero .lead{margin-inline:auto;text-align:center}
+body[data-hero="centrado"] .ahero__media{margin-top:48px}
+
+/* variação SPLIT (texto + mock) */
+body[data-hero="split"] .ahero__inner{display:grid;grid-template-columns:1.04fr .96fr;gap:52px;align-items:center}
+body[data-hero="split"] .ahero__media{margin-top:0}
+body[data-hero="split"] .ahero .display{font-size:clamp(32px,4vw,46px)}
+
+/* variação EDITORIAL (faixa lateral + texto largo) */
+body[data-hero="editorial"] .ahero__inner{max-width:var(--wrap)}
+body[data-hero="editorial"] .ahero{border-left:3px solid var(--primary);padding-left:34px;
+  margin-left:max(28px,calc((100vw - var(--wrap))/2 + 28px));margin-right:28px;width:auto}
+body[data-hero="editorial"] .ahero .display{max-width:18ch}
+body[data-hero="editorial"] .ahero__media{display:none}
+
+@media (max-width:1000px){
+  body[data-hero="split"] .ahero__inner{grid-template-columns:1fr;gap:40px}
+  body[data-hero="editorial"] .ahero{margin-left:0;padding-left:24px}
+}
+
+/* ---------- mock no hero (relatório/painel) ---------- */
+.amock{padding:20px}
+.amock__bar{display:flex;align-items:center;gap:8px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:16px}
+.amock__dot{width:10px;height:10px;border-radius:50%;background:var(--ink-600)}
+.amock__dot:nth-child(1){background:#EF4444}.amock__dot:nth-child(2){background:#F59E0B}.amock__dot:nth-child(3){background:#22C55E}
+.amock__t{margin-left:8px;font-family:var(--font-mono);font-size:12px;color:var(--text-mut)}
+.amock__kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.amock__kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:13px}
+.amock__kv{font-family:var(--font-display);font-weight:700;font-size:20px;letter-spacing:-.02em}
+.amock__kl{font-size:11px;color:var(--text-mut);margin-top:2px}
+.amock__chart{display:flex;align-items:flex-end;gap:8px;height:120px;padding:14px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md)}
+.amock__col{flex:1;border-radius:5px 5px 0 0;background:linear-gradient(180deg,var(--vd-cyan-400),var(--vd-cyan-700));min-height:8px}
+.amock__col--am{background:linear-gradient(180deg,var(--vd-amber-400),var(--vd-amber-600))}
+.amock__rows{display:flex;flex-direction:column;gap:9px;margin-top:14px}
+.amock__row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--r-sm);padding:11px 13px;font-size:13px}
+.amock__row .mono{color:var(--text-sec)}
+
+/* ---------- STACK / features ---------- */
+.stack-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:46px}
+@media (max-width:1000px){.stack-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:680px){.stack-grid{grid-template-columns:1fr}}
+
+/* variação LISTA: linhas alternadas */
+body[data-stack="lista"] .stack-grid{display:flex;flex-direction:column;gap:0;
+  border-top:1px solid var(--border)}
+body[data-stack="lista"] .feat{
+  border:0;border-bottom:1px solid var(--border);border-radius:0;background:none;padding:30px 8px;
+  display:grid;grid-template-columns:56px 1fr;gap:22px;align-items:start;transform:none!important}
+body[data-stack="lista"] .feat:hover{background:rgba(148,163,184,.03);box-shadow:none}
+body[data-stack="lista"] .feat .card__ico{margin-bottom:0}
+body[data-stack="lista"] .feat h3{font-size:19px}
+body[data-stack="lista"] .feat p{max-width:70ch}
+
+.feat .card__ico{width:46px;height:46px}
+
+/* ---------- PROVA ---------- */
+.prova{display:flex;gap:26px;align-items:flex-start;padding:clamp(28px,4vw,44px);
+  background:radial-gradient(600px 260px at 88% -20%, rgba(6,182,212,.10), transparent 60%),linear-gradient(180deg,var(--raised),var(--surface))}
+.prova__ico{flex:none;width:58px;height:58px;border-radius:var(--r-lg);display:grid;place-items:center;
+  background:rgba(245,158,11,.12);color:var(--vd-amber-400);border:1px solid rgba(245,158,11,.22)}
+.prova__ico svg{width:28px;height:28px}
+.prova__body{display:flex;flex-direction:column;gap:14px}
+.prova__body p{color:var(--text-sec);max-width:74ch}
+@media (max-width:600px){.prova{flex-direction:column;gap:18px}}
+
+/* ---------- ESCOPO / investimento ---------- */
+.escopo{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:24px;
+  padding:clamp(26px,3.5vw,40px);border:1px solid var(--border);border-radius:var(--r-2xl);
+  background:linear-gradient(180deg,var(--card),var(--ink-850))}
+.escopo__l{max-width:54ch}
+.escopo__l p{color:var(--text-sec);margin-top:10px}
+
+/* ---------- Switcher de variações ---------- */
+.vswitch{position:fixed;right:20px;bottom:88px;z-index:70;
+  background:rgba(19,27,46,.92);backdrop-filter:blur(14px);border:1px solid var(--border);
+  border-radius:var(--r-lg);box-shadow:var(--shadow-3);padding:14px 16px;width:248px;
+  transition:transform .35s var(--ease), opacity .25s}
+.vswitch.is-min{transform:translateY(calc(100% - 46px))}
+.vswitch__head{display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:10px}
+.vswitch__head h5{margin:0;font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--vd-cyan-300);font-weight:600}
+.vswitch__chev{color:var(--text-mut);transition:transform .3s var(--ease)}
+.vswitch__chev svg{width:18px;height:18px}
+.vswitch.is-min .vswitch__chev{transform:rotate(180deg)}
+.vswitch__body{margin-top:14px;display:flex;flex-direction:column;gap:14px}
+.vswitch__group label{display:block;font-size:11px;color:var(--text-mut);margin-bottom:7px;letter-spacing:.02em}
+.seg{display:flex;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:none;color:var(--text-sec);font-size:12px;font-weight:600;
+  padding:7px 4px;border-radius:7px;transition:all .18s;text-transform:capitalize}
+.seg button.is-on{background:var(--primary);color:var(--on-primary)}
+.seg button:not(.is-on):hover{color:var(--text);background:rgba(148,163,184,.08)}
+.vswitch__hint{font-size:10.5px;color:var(--text-mut);line-height:1.4}
+@media (max-width:560px){.vswitch{display:none}}

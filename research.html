@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VOTODATA Research Unit — Inteligência de Previsão Eleitoral 2026</title>
+<meta name="description" content="A unidade de inteligência da VotoData decodifica as arquiteturas de Machine Learning das consultorias de elite — FiveThirtyEight, YouGov, The Economist — para o superciclo eleitoral de 2026: Brasil, EUA e Europa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  /* ---- Research hero: globe stage ---- */
+  .rhero{padding-top:calc(var(--header-h) + 56px);padding-bottom:36px;overflow:hidden}
+  .rhero__grid{display:grid;grid-template-columns:1.04fr .96fr;gap:52px;align-items:center}
+  .rhero__copy{max-width:600px}
+  .rhero .display{margin-top:20px}
+  .rhero .lead{margin-top:22px}
+  .rhero__cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:32px}
+
+  .globe-stage{position:relative;display:flex;align-items:center;justify-content:center;min-height:460px}
+  .globe-stage::before{
+    content:"";position:absolute;width:118%;height:118%;border-radius:50%;
+    background:radial-gradient(circle at 50% 42%, rgba(6,182,212,.20), rgba(245,158,11,.06) 45%, transparent 68%);
+    filter:blur(8px);pointer-events:none;
+  }
+  canvas[data-vd-globe]{
+    position:relative;width:min(500px,82vw);aspect-ratio:1/1;
+    touch-action:none;cursor:grab;
+  }
+  canvas[data-vd-globe]:active{cursor:grabbing}
+  .globe-cap{
+    position:absolute;left:50%;bottom:-2px;transform:translateX(-50%);
+    font-family:var(--font-mono);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--text-mut);white-space:nowrap;display:flex;align-items:center;gap:8px;
+  }
+  .globe-cap .d{width:6px;height:6px;border-radius:50%;background:var(--vd-cyan-400);box-shadow:0 0 0 3px rgba(6,182,212,.2)}
+
+  /* ---- method / consultancy cards ---- */
+  .meth{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .meth__card{
+    background:linear-gradient(180deg,var(--card),var(--ink-850));
+    border:1px solid var(--border);border-radius:var(--r-xl);padding:24px;
+    display:flex;flex-direction:column;gap:12px;transition:border-color .25s,transform var(--ease) .25s,box-shadow .25s;
+  }
+  .meth__card:hover{border-color:var(--border-soft);transform:translateY(-3px);box-shadow:var(--shadow-2)}
+  .meth__top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .meth__name{font-family:var(--font-display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .meth__tag{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+    padding:4px 9px;border-radius:var(--r-full);background:rgba(6,182,212,.1);color:var(--vd-cyan-300);border:1px solid rgba(6,182,212,.22);white-space:nowrap}
+  .meth__tag--am{background:rgba(245,158,11,.1);color:var(--vd-amber-400);border-color:rgba(245,158,11,.24)}
+  .meth__card p{color:var(--text-sec);font-size:14.5px;margin:0}
+  .meth__stat{margin-top:auto;padding-top:12px;border-top:1px solid var(--border);
+    font-family:var(--font-mono);font-size:12.5px;color:var(--text-mut)}
+  .meth__stat b{color:var(--vd-cyan-300);font-weight:600}
+
+  /* ---- frentes (regions) ---- */
+  .fr__top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:6px}
+  .fr__flag{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-mut)}
+  .fr__date{font-family:var(--font-mono);font-size:12px;color:var(--vd-amber-400)}
+  .fr__metrics{display:flex;gap:22px;margin-top:18px;flex-wrap:wrap}
+  .fr__m{display:flex;flex-direction:column;gap:2px}
+  .fr__mv{font-family:var(--font-display);font-weight:700;font-size:23px;letter-spacing:-.02em}
+  .fr__ml{font-size:12px;color:var(--text-mut)}
+
+  /* ---- dashboard promo split ---- */
+  .promo{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .promo__shot{border:1px solid var(--border);border-radius:var(--r-2xl);overflow:hidden;background:var(--ink-900);
+    box-shadow:var(--shadow-3);position:relative}
+  .promo__bar{display:flex;align-items:center;gap:7px;padding:12px 16px;border-bottom:1px solid var(--border);background:rgba(15,23,42,.7)}
+  .promo__bar i{width:10px;height:10px;border-radius:50%;background:var(--ink-600)}
+  .promo__bar i:nth-child(1){background:#EF4444}.promo__bar i:nth-child(2){background:#F59E0B}.promo__bar i:nth-child(3){background:#22C55E}
+  .promo__bar span{margin-left:8px;font-family:var(--font-mono);font-size:11.5px;color:var(--text-mut)}
+  .promo__viz{padding:22px;display:grid;grid-template-columns:repeat(6,1fr);gap:7px;align-items:end;height:230px}
+  .promo__viz b{display:block;border-radius:4px 4px 0 0;background:linear-gradient(180deg,var(--vd-cyan-400),var(--vd-cyan-700))}
+  .promo__viz b:nth-child(even){background:linear-gradient(180deg,var(--vd-amber-400),var(--vd-amber-600))}
+
+  @media (max-width:1000px){
+    .rhero__grid{grid-template-columns:1fr;gap:24px}
+    .globe-stage{order:-1;min-height:380px}
+    .meth{grid-template-columns:repeat(2,1fr)}
+    .promo{grid-template-columns:1fr;gap:28px}
+  }
+  @media (max-width:680px){
+    .meth{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body data-page="research">
+
+<!-- ============ HERO · GLOBO 3D ============ -->
+<section class="rhero" data-screen-label="Research — Hero">
+  <div class="wrap">
+    <div class="rhero__grid">
+      <div class="rhero__copy">
+        <span class="pill"><span class="dot dot--live"></span>VotoData · Intelligence Unit · Superciclo 2026</span>
+        <h1 class="display">A engenharia por trás da <span class="cy">previsão eleitoral.</span></h1>
+        <p class="lead">A unidade de pesquisa da VotoData decodifica as arquiteturas de Machine Learning que movem mercados e definem campanhas — modelos Bayesianos, MRP e ensembles aplicados ao ano eleitoral mais denso da década: <b class="am">Brasil, EUA e Europa</b>.</p>
+        <div class="rhero__cta">
+          <a class="btn btn--primary btn--lg" href="../Research Dashboard 2026.html"><i data-i="dashboard"></i>Abrir o dashboard 2026</a>
+          <a class="btn btn--ghost btn--lg" href="#frentes">As três frentes <i data-i="arrowRight"></i></a>
+        </div>
+      </div>
+      <div class="globe-stage" aria-hidden="true">
+        <canvas data-vd-globe></canvas>
+        <span class="globe-cap"><span class="d"></span>60+ países · 1,5 bi de eleitores · arraste para girar</span>
+      </div>
+    </div>
+
+    <div class="statstrip" data-reveal>
+      <div class="statstrip__c"><span class="statstrip__v cy">1,5 bi</span><span class="statstrip__l">Eleitores às urnas em 2026</span></div>
+      <div class="statstrip__c"><span class="statstrip__v">60+</span><span class="statstrip__l">Países com eleições</span></div>
+      <div class="statstrip__c"><span class="statstrip__v am">54/81</span><span class="statstrip__l">Cadeiras do Senado BR em jogo</span></div>
+      <div class="statstrip__c"><span class="statstrip__v">12+</span><span class="statstrip__l">Pleitos na Europa</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="divider"></div></div>
+
+<!-- ============ AS TRÊS FRENTES ============ -->
+<section class="section" id="frentes">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow">Campo de batalha global</span>
+      <h2 class="h2">Três frentes, três sistemas eleitorais, uma engenharia.</h2>
+      <p class="lead">Cada sistema exige uma arquitetura distinta. O proporcional aberto brasileiro, o majoritário americano e a fragmentação europeia pedem modelos diferentes — e a unidade cobre os três.</p>
+    </div>
+
+    <div class="grid g3" style="margin-top:44px">
+      <article class="card card--glow" data-reveal>
+        <div class="fr__top"><span class="fr__flag">Brasil</span><span class="fr__date">04 · 10 · 2026</span></div>
+        <h3 class="h3">O Congresso como campo de batalha</h3>
+        <p>Câmara por proporcional aberto e dois terços do Senado em disputa. A hegemonia conservadora (PL na liderança) torna a modelagem decisiva para a governabilidade.</p>
+        <div class="fr__metrics">
+          <div class="fr__m"><span class="fr__mv cy">87</span><span class="fr__ml">Deputados do PL (maior bancada)</span></div>
+          <div class="fr__m"><span class="fr__mv">513</span><span class="fr__ml">Cadeiras na Câmara</span></div>
+        </div>
+      </article>
+
+      <article class="card card--glow" data-reveal>
+        <div class="fr__top"><span class="fr__flag">Estados Unidos</span><span class="fr__date">03 · 11 · 2026</span></div>
+        <h3 class="h3">As midterms como termômetro</h3>
+        <p>Referendo sobre o segundo mandato de Trump. O Senado em equilíbrio extremo e a Câmara com vantagem democrata no generic ballot do Silver Bulletin.</p>
+        <div class="fr__metrics">
+          <div class="fr__m"><span class="fr__mv am">50–50</span><span class="fr__ml">Senado (The Economist)</span></div>
+          <div class="fr__m"><span class="fr__mv">D+6.1</span><span class="fr__ml">Generic ballot (Câmara)</span></div>
+        </div>
+      </article>
+
+      <article class="card card--glow" data-reveal>
+        <div class="fr__top"><span class="fr__flag">Europa</span><span class="fr__date">2026 · ano denso</span></div>
+        <h3 class="h3">O ano eleitoral mais denso da década</h3>
+        <p>Hungria, Suécia, Eslovênia, Letônia e mais — fragmentação partidária e risco de interferência externa testam a robustez dos modelos cross-nacionais.</p>
+        <div class="fr__metrics">
+          <div class="fr__m"><span class="fr__mv cy">12+</span><span class="fr__ml">Países em pleito</span></div>
+          <div class="fr__m"><span class="fr__mv">8</span><span class="fr__ml">Legislativas-chave monitoradas</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ARSENAL METODOLÓGICO ============ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section-head" data-reveal>
+      <span class="eyebrow eyebrow--amber">Arsenal metodológico</span>
+      <h2 class="h2">As consultorias de elite — e como elas pensam.</h2>
+      <p class="lead">Não existe um modelo para governar todos. A unidade compara as arquiteturas de previsão das consultorias que movem o mercado global.</p>
+    </div>
+
+    <div class="meth" style="margin-top:40px">
+      <div class="meth__card" data-reveal>
+        <div class="meth__top"><span class="meth__name">FiveThirtyEight</span><span class="meth__tag">Bayesiano</span></div>
+        <p>MCMC + fundamentals + média ponderada de pesquisas, com correlação entre estados similares. Estado da arte em previsão Bayesiana.</p>
+        <div class="meth__stat"><b>40.000+</b> cenários simulados</div>
+      </div>
+      <div class="meth__card" data-reveal>
+        <div class="meth__top"><span class="meth__name">YouGov</span><span class="meth__tag">MRP</span></div>
+        <p>Regressão multinível com pós-estratificação. Granularidade subnacional via matching com o voter file e tracking longitudinal.</p>
+        <div class="meth__stat"><b>100.000+</b> entrevistas</div>
+      </div>
+      <div class="meth__card" data-reveal>
+        <div class="meth__top"><span class="meth__name">The Economist</span><span class="meth__tag">Ensemble</span></div>
+        <p>Modelo combinado House/Senate que integra pesquisas, fundamentals e qualidade de candidatos em simulação Monte Carlo.</p>
+        <div class="meth__stat"><b>25.001</b> simulações</div>
+      </div>
+      <div class="meth__card" data-reveal>
+        <div class="meth__top"><span class="meth__name">Ipsos</span><span class="meth__tag">Probability Panel</span></div>
+        <p>KnowledgePanel© com calibração demográfica e abordagem online de amostragem probabilística. Alcance global.</p>
+        <div class="meth__stat"><b>50+</b> países cobertos</div>
+      </div>
+      <div class="meth__card" data-reveal>
+        <div class="meth__top"><span class="meth__name">Kantar</span><span class="meth__tag meth__tag--am">Reações implícitas</span></div>
+        <p>Mede sentimentos não-declarados por tempo de reação — uma janela para o "shy voter" que pesquisas tradicionais não capturam.</p>
+        <div class="meth__stat"><b>2016 &amp; 2020</b> · acertou ambas</div>
+      </div>
+      <div class="meth__card" data-reveal>
+        <div class="meth__top"><span class="meth__name">Morning Consult</span><span class="meth__tag">Online polling</span></div>
+        <p>Amostragem não-probabilística com ponderação e alta frequência. Dados em tempo real para tracking contínuo.</p>
+        <div class="meth__stat"><b>Tempo real</b> · alta frequência</div>
+      </div>
+    </div>
+
+    <div class="disclaimer" style="margin-top:34px" data-reveal>
+      <b>Bayesianos vs. frequentistas, sentiment vs. fundamentals.</b> A divergência entre abordagens reflete filosofias distintas sobre como medir intenção de voto. As consultorias de elite convergem para arquiteturas híbridas — e é isso que o dashboard 2026 destrincha.
+    </div>
+  </div>
+</section>
+
+<!-- ============ DASHBOARD PROMO ============ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="promo">
+      <div class="promo__shot" data-reveal>
+        <div class="promo__bar"><i></i><i></i><i></i><span>votodata · research dashboard 2026</span></div>
+        <div class="promo__viz">
+          <b style="height:78%"></b><b style="height:92%"></b><b style="height:64%"></b><b style="height:85%"></b><b style="height:54%"></b><b style="height:71%"></b>
+        </div>
+      </div>
+      <div data-reveal>
+        <span class="eyebrow">Ferramenta interativa</span>
+        <h2 class="h2" style="margin-top:14px">O dashboard de inteligência eleitoral 2026.</h2>
+        <p class="lead" style="margin-top:16px">Acurácia por metodologia, calendário global, composição do Congresso brasileiro, mapa do Senado americano e radar de modelos de ML — tudo em uma superfície interativa, no design system VotoData.</p>
+        <div class="rhero__cta" style="margin-top:28px">
+          <a class="btn btn--primary btn--lg" href="../Research Dashboard 2026.html"><i data-i="chart"></i>Abrir o dashboard</a>
+          <a class="btn btn--link" href="mailto:intelligence@votodata.net?subject=Relat%C3%B3rio%20Research%20Unit%202026" style="align-self:center">Solicitar o relatório completo <i data-i="arrowRight"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="cta-banner" data-reveal>
+      <span class="eyebrow eyebrow--plain mono" style="color:var(--text-mut)">VotoData · Intelligence Unit</span>
+      <h2 class="h2">Inteligência de previsão para quem decide com dados.</h2>
+      <p class="lead" style="text-align:center">Relatórios de cenários, dashboards em tempo real e modelos customizados para partidos, agências e investidores no superciclo de 2026.</p>
+      <div class="cta">
+        <a class="btn btn--primary btn--lg" href="mailto:intelligence@votodata.net?subject=Consulta%20Research%20Unit"><i data-i="mail"></i>Falar com a unidade</a>
+        <a class="btn btn--ghost btn--lg" href="../Research Dashboard 2026.html"><i data-i="dashboard"></i>Ver o dashboard</a>
+      </div>
+      <p class="mono" style="font-size:12px;color:var(--text-mut)">Dados de fontes públicas oficiais · projeções são estimativas de modelos, não garantias</p>
+    </div>
+  </div>
+</section>
+
+<script src="site.js"></script>
+<script src="ds/globe.js"></script>
+</body>
+</html>

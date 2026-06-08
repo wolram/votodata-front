@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contato — VOTODATA</title>
+<meta name="description" content="Fale com a equipe VotoData. Agende uma demonstração de 15 minutos ou solicite o relatório do seu território.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  .contact{display:grid;grid-template-columns:1fr 1.1fr;gap:48px;align-items:start;margin-top:46px}
+  @media (max-width:900px){.contact{grid-template-columns:1fr;gap:36px}}
+  .channels{display:flex;flex-direction:column;gap:14px}
+  .channel{display:flex;gap:16px;align-items:center;padding:18px 20px;border:1px solid var(--border);
+    border-radius:var(--r-lg);background:var(--surface);transition:all .22s var(--ease)}
+  .channel:hover{border-color:var(--vd-cyan-700);background:rgba(6,182,212,.05);transform:translateY(-2px)}
+  .channel__ico{flex:none;width:46px;height:46px;border-radius:var(--r-md);display:grid;place-items:center;
+    background:rgba(6,182,212,.12);color:var(--vd-cyan-300);border:1px solid rgba(6,182,212,.2)}
+  .channel__ico svg{width:22px;height:22px}
+  .channel h3{font-size:16px;font-family:var(--font-display)}
+  .channel p{font-size:13.5px;color:var(--text-mut);margin-top:2px}
+  .channel .mono{color:var(--text-sec);font-size:13px}
+  .form{padding:clamp(24px,3vw,34px);border:1px solid var(--border);border-radius:var(--r-2xl);
+    background:linear-gradient(180deg,var(--card),var(--ink-850))}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:13px;color:var(--text-sec);margin-bottom:7px;font-weight:500}
+  .field input,.field select,.field textarea{width:100%;background:var(--surface);border:1px solid var(--border);
+    border-radius:var(--r-md);color:var(--text);font-family:var(--font-body);font-size:15px;padding:12px 14px;transition:border-color .2s,box-shadow .2s}
+  .field input::placeholder,.field textarea::placeholder{color:var(--text-disabled,#64748B)}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--focus-ring)}
+  .field textarea{resize:vertical;min-height:110px}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media (max-width:520px){.field-row{grid-template-columns:1fr}}
+  .form__note{font-size:12px;color:var(--text-mut);margin-top:6px}
+</style>
+</head>
+<body data-page="contato">
+
+<section class="hero" data-screen-label="Contato — Hero" style="padding-bottom:24px">
+  <div class="wrap" style="max-width:1000px">
+    <span class="pill"><span class="dot dot--live"></span>Acesso à plataforma · 2026</span>
+    <h1 class="display" style="font-size:clamp(34px,5vw,56px);margin-top:20px">Cada operação é única. <span class="cy">O acesso também.</span></h1>
+    <p class="lead" style="margin-top:20px">Não vendemos planos online. Cada contrato é estruturado conforme o porte da campanha, o número de candidatos e os módulos necessários. Fale com nossa equipe para um diagnóstico gratuito.</p>
+  </div>
+</section>
+
+<section class="section" style="padding-top:8px">
+  <div class="wrap">
+    <div class="contact">
+      <div>
+        <span class="eyebrow">Canais diretos</span>
+        <div class="channels" style="margin-top:22px">
+          <a class="channel" href="mailto:contato@votodata.net?subject=Demo%20VotoData%202026">
+            <span class="channel__ico"><i data-i="calendar"></i></span>
+            <div><h3>Agendar demonstração</h3><p>15 minutos com o fundador, plataforma ao vivo</p></div>
+          </a>
+          <a class="channel" href="mailto:contato@votodata.net">
+            <span class="channel__ico"><i data-i="mail"></i></span>
+            <div><h3>E-mail</h3><span class="mono">contato@votodata.net</span></div>
+          </a>
+          <a class="channel" href="https://wa.me/5511951417671" target="_blank" rel="noopener">
+            <span class="channel__ico"><i data-i="whatsapp"></i></span>
+            <div><h3>WhatsApp</h3><span class="mono">+55 11 95141-7671</span></div>
+          </a>
+        </div>
+        <p class="disclaimer" style="margin-top:24px"><b>Disclaimer.</b> Todas as informações da VotoData são extraídas exclusivamente de fontes públicas oficiais. A plataforma não recomenda, ranqueia nem sugere candidatos ou partidos.</p>
+      </div>
+
+      <form class="form" id="contatoForm">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input id="nome" name="nome" placeholder="Seu nome completo" required>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="email">E-mail corporativo</label>
+            <input id="email" name="email" type="email" placeholder="voce@dominio.com" required>
+          </div>
+          <div class="field">
+            <label for="org">Organização</label>
+            <input id="org" name="org" placeholder="Campanha, partido ou agência">
+          </div>
+        </div>
+        <div class="field">
+          <label for="perfil">Você é</label>
+          <select id="perfil" name="perfil">
+            <option>Candidato</option>
+            <option>Partido / coligação</option>
+            <option>Agência de marketing político</option>
+            <option>Imprensa / pesquisa</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="msg">Como podemos ajudar?</label>
+          <textarea id="msg" name="msg" placeholder="Conte o cargo, a UF/município e o que você precisa decidir."></textarea>
+        </div>
+        <button class="btn btn--primary btn--lg btn--block" type="submit"><i data-i="mail"></i>Solicitar acesso</button>
+        <p class="form__note">Ao enviar, abriremos seu cliente de e-mail com a mensagem pronta para contato@votodata.net.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(26 32)" fill="none" stroke="#06B6D4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="44" height="32" rx="4"/><path d="M2 8 24 22 46 8" stroke="#F59E0B"/></g></svg>
+</template>
+
+<script src="site.js"></script>
+<script>
+  document.getElementById('contatoForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const f = e.target;
+    const btn = f.querySelector('button[type="submit"]');
+    const originalBtnContent = btn.innerHTML;
+
+    btn.disabled = true;
+    btn.innerHTML = '<i data-i="loader"></i> Enviando...';
+    if (window.vdHydrate) window.vdHydrate();
+
+    const data = {
+      nome: f.nome.value,
+      email: f.email.value,
+      org: f.org.value,
+      perfil: f.perfil.value,
+      msg: f.msg.value
+    };
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert('Solicitação enviada com sucesso! Entraremos em contato em breve.');
+        f.reset();
+      } else {
+        throw new Error('Falha ao enviar');
+      }
+    } catch (err) {
+      console.error(err);
+      // Fallback para mailto se a API falhar
+      var subj = encodeURIComponent('Solicitação de acesso — ' + (f.perfil.value || '') + ' · ' + (f.org.value || f.nome.value || ''));
+      var body = encodeURIComponent('Nome: ' + f.nome.value + '\nE-mail: ' + f.email.value + '\nOrganização: ' + f.org.value + '\nPerfil: ' + f.perfil.value + '\n\n' + f.msg.value);
+      window.location.href = 'mailto:contato@votodata.net?subject=' + subj + '&body=' + body;
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = originalBtnContent;
+      if (window.vdHydrate) window.vdHydrate();
+    }
+  });
+</script>
+</body>
+</html>

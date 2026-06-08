@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artigo — VOTODATA</title>
+<meta name="description" content="Análise VotoData.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  .artwrap{max-width:760px;margin-inline:auto;padding-top:calc(var(--header-h) + 48px)}
+  .arthead{display:flex;flex-direction:column;gap:14px;margin-bottom:40px;padding-bottom:34px;border-bottom:1px solid var(--border)}
+  .artback{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:var(--text-mut);font-family:var(--font-mono)}
+  .artback:hover{color:var(--vd-cyan-300)}
+  .artback svg{width:15px;height:15px;transform:rotate(180deg)}
+  .arthead h1{font-family:var(--font-display);font-weight:700;font-size:clamp(28px,4vw,44px);letter-spacing:-.02em;line-height:1.12;text-wrap:balance}
+  .artbody{font-size:17px;line-height:1.75;color:var(--text-secondary,#94A3B8)}
+  .artbody>*+*{margin-top:20px}
+  .artbody h2{font-family:var(--font-display);font-weight:600;font-size:26px;letter-spacing:-.015em;color:var(--text);margin-top:44px}
+  .artbody h3{font-family:var(--font-display);font-weight:600;font-size:20px;color:var(--text);margin-top:32px}
+  .artbody p{color:var(--text-secondary,#94A3B8)}
+  .artbody strong{color:var(--text);font-weight:600}
+  .artbody a{color:var(--vd-cyan-300);text-decoration:underline;text-underline-offset:3px}
+  .artbody code{font-family:var(--font-mono);font-size:.88em;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2px 7px;color:var(--vd-cyan-300)}
+  .artbody ul,.artbody ol{padding-left:24px;display:flex;flex-direction:column;gap:10px}
+  .artbody li{color:var(--text-secondary,#94A3B8)}
+  .artbody li::marker{color:var(--vd-cyan-500)}
+  .artbody blockquote{margin:30px 0;padding:18px 24px;border-left:3px solid var(--primary);
+    background:rgba(6,182,212,.06);border-radius:0 var(--r-md) var(--r-md) 0;
+    font-family:var(--font-display);font-size:20px;font-weight:500;color:var(--text);line-height:1.4}
+  .artbody hr{border:0;height:1px;background:var(--border);margin:36px 0}
+  .artcta{max-width:760px;margin:56px auto 0}
+</style>
+</head>
+<body data-page="post">
+<main class="wrap artwrap" id="article">
+  <p class="muted" style="padding-top:40px">Carregando…</p>
+</main>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(30 28)" fill="none" stroke="#06B6D4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="36" height="44" rx="4"/><path d="M9 14h22M9 23h22M9 32h14" stroke="#F59E0B"/></g></svg>
+</template>
+
+<script src="site.js"></script>
+<script src="blog.js"></script>
+</body>
+</html>

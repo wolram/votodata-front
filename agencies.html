@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agências — Agency Intelligence Hub · VOTODATA</title>
+<meta name="description" content="Dados eleitorais auditáveis, multi-candidato, export PDF e API REST. Ingestão TSE streaming, compliance-first, para agências de marketing político.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="audience.css">
+</head>
+<body data-page="agencias">
+<main id="app"></main>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(28 28)" fill="none" stroke="#06B6D4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="10" cy="10" r="7"/><circle cx="34" cy="10" r="7" stroke="#F59E0B"/><circle cx="22" cy="34" r="7"/><path d="M14 14 19 28M30 14 25 28"/></g></svg>
+</template>
+
+<script>
+window.PAGE = {
+  page: 'agencias',
+  eyebrow: 'Para agências de marketing político · 2026',
+  demo: 'mailto:contato@votodata.net?subject=Demo%20VotoData%20-%20ag%C3%AAncia',
+  layout: { hero: 'split', stack: 'cards' },
+  title: 'Sua agência entrega narrativa. Nós entregamos os <span class="cy">dados auditáveis</span> por trás dela.',
+  lead: 'VotoData é a plataforma de consolidação eleitoral que agências de performance usam para transformar dados brutos do TSE em operação escalável — sem comprometer compliance.',
+  ctas: [
+    { label: 'Ver planos', icon: 'lockOpen', primary: true, href: 'pricing.html' },
+    { label: 'Agendar demo', icon: 'calendar' }
+  ],
+  mock: {
+    title: 'Agency Hub · ingest TSE',
+    kpis: [ { v: '8 GB', l: 'CSV processado' }, { v: '<256MB', l: 'RSS constante', tone: 'cy' }, { v: '5.570', l: 'Municípios' } ],
+    chart: [55, 70, 48, 82, 60, 75, 91], chartHi: 6,
+    rows: [ { l: 'crawler-tse-02', v: 'streaming' }, { l: 'export · PDF semanal', v: 'pronto' }, { l: 'webhook · Slack', v: 'ativo' } ]
+  },
+  diag: {
+    eyebrow: 'Diagnóstico', title: 'Três dores que sua agência já conhece.',
+    items: [
+      { icon: 'clock', h: 'Tempo perdido em dados brutos', p: 'Sua equipe gasta 40% da semana parseando CSV do TSE em vez de produzir narrativa. Latin-1, separadores quebrados, encoding inconsistente. Todo ano a mesma dor.' },
+      { icon: 'map', h: 'Atrasos em cenários regionais', p: 'Cobertura municipal é aleatória. Você tem dados de São Paulo mas manda estagiário baixar CSV de Manaus. 5.570 municípios, 27 UFs, e você refaz esse trabalho a cada ciclo.' },
+      { icon: 'gavel', h: 'Compliance reativo', p: 'Seu jurídico entra em pânico toda vez que o TSE publica nova resolução. Você corre atrás de opinião legal sobre ferramentas que não foram pensadas para 2026.', danger: true }
+    ]
+  },
+  stack: {
+    eyebrow: 'Stack', title: 'O que temos pronto.',
+    items: [
+      { icon: 'bolt', h: 'Ingestão Rust streaming', p: '8 GB de CSV TSE processados em minutos, RSS constante abaixo de 256 MB. Sua equipe deixa de esperar pipeline.', amber: true },
+      { icon: 'database', h: 'Histórico normalizado desde 1945', p: 'CEPESPData 1945-presente + TSE raw + brasil.io fallback. IDs estáveis para análise longitudinal.' },
+      { icon: 'dashboard', h: 'Dashboard multi-candidato', p: 'Filtros por UF, município, cargo. Comparação lado a lado. Export CSV/PDF.' },
+      { icon: 'api', h: 'API read-access', p: 'REST + webhooks. Rate limit generoso em Pro. Integra com seu CRM via Zapier, Make ou direto.' },
+      { icon: 'bell', h: 'Alertas operacionais', p: 'Email, webhook, Slack. Regras customizáveis por cliente-candidato.' },
+      { icon: 'shield', h: 'Compliance-first', p: 'Contrato com cláusula TSE + LGPD explícita. Só fontes públicas. Zero microtargeting.' },
+      { icon: 'phone', h: 'App iOS/iPadOS nativo', p: 'Dashboard, Elections, Reports, Territories e WarRoom nativos. Para o gestor que precisa de dado em campo — sem abrir navegador.' },
+      { icon: 'article', h: 'Relatórios executivos por território', p: 'Gerador city-report em Rust: análise histórica agregada por município e zona com dados oficiais. Exporta HTML interativo + JSON.' },
+      { icon: 'model', h: 'Modelos abertos: Bayesiano + Proporcional + Sentimento', p: 'Consolidador hierárquico PyMC, DeputyOptimizer (QE/QP, 27 UFs), Mission Control (BERT, alertas). Stack transparente, metodologia documentada.' }
+    ]
+  },
+  fluxo: {
+    eyebrow: 'Fluxo operacional', title: 'Como você roda sua operação.',
+    steps: [
+      { h: 'Onboarding 48h', p: 'Você passa a lista de candidatos, provisionamos dashboard + contas de usuário. Treinamento guiado.' },
+      { h: 'Ingestão automática', p: 'TSE + IBGE + sociais sincronizam em tempo real. Sua agência só vê o resultado.' },
+      { h: 'Produção de narrativa', p: 'Sua equipe de estratégia e mídia usa o dashboard para construir discurso. Sem sair da ferramenta.' },
+      { h: 'Relatório para o cliente', p: 'Você exporta PDF semanal para o candidato/comitê. Dados assinados pela plataforma.' }
+    ]
+  },
+  prova: {
+    eyebrow: 'Prova', title: 'Cases de uso (em construção).', icon: 'flask',
+    p: 'Estamos em ramp-up com as primeiras agências parceiras para as eleições 2026. Se você quer ser um dos early adopters com desconto de fundador em Pro e input direto no roadmap, fale com a gente.',
+    badge: 'Desconto de fundador · vagas limitadas'
+  },
+  escopo: {
+    eyebrow: 'Planos', title: 'Pricing sob consulta. Cada operação é única.',
+    p: 'Três tiers: Starter (1 candidato), Pro (5 candidatos, API, relatórios) e Enterprise (white-label, SSO, SLA dedicado). Preços e propostas são enviados após diagnóstico — libere o acesso com seu email corporativo.',
+    cta: { label: 'Ver planos', href: 'pricing.html' }
+  },
+  faq: {
+    items: [
+      { q: 'Vocês garantem vitória do meu candidato?', a: 'Não. Isso seria ilegal e tecnicamente impossível. A gente entrega dados e ferramenta; estratégia é sua.' },
+      { q: 'Como vocês lidam com TSE e LGPD?', a: 'Só fontes públicas oficiais, nunca microtargeting individual. Contrato com cláusula explícita de compliance. Disclaimer visível em todas as interfaces.' },
+      { q: 'Funciona para eleição municipal 2028 também?', a: 'Sim. O schema cobre 5.570 municípios e a arquitetura é desenhada para suportar volume 30× maior sem reescrita.' },
+      { q: 'E quando meu candidato quer microtargeting por bairro?', a: 'Não fazemos isso. Se for crítico para o seu caso, a VotoData não é o fornecedor certo.' }
+    ]
+  },
+  cta: {
+    title: 'Pronto para conversar?',
+    p: 'Agende 15 minutos com o fundador. Mostramos o dashboard rodando, respondemos sobre pricing e tiramos dúvidas regulatórias.',
+    buttons: [
+      { label: 'Agendar demo', icon: 'calendar', primary: true },
+      { label: 'Ver planos primeiro', href: 'pricing.html', arrow: true }
+    ]
+  }
+};
+</script>
+<script src="site.js"></script>
+<script src="audience.js"></script>
+</body>
+</html>

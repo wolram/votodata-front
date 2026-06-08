@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidatos — VOTODATA</title>
+<meta name="description" content="Relatório executivo com 90 anos de histórico TSE + mapa interativo + app iOS/iPadOS nativo. Inteligência que antes só os grandes tinham.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="audience.css">
+</head>
+<body data-page="candidatos">
+<main id="app"></main>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(30 30)" fill="none" stroke="#06B6D4" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><circle cx="14" cy="12" r="9"/><path d="M0 40 a14 14 0 0 1 28 0" stroke="#22D0EE"/><path d="M30 16 h10" stroke="#F59E0B"/></g></svg>
+</template>
+
+<script>
+window.PAGE = {
+  page: 'candidatos',
+  eyebrow: 'Para candidatos · 2026',
+  demo: 'mailto:contato@votodata.net?subject=Demo%20VotoData%202026%20-%20candidato',
+  layout: { hero: 'split', stack: 'cards' },
+  title: 'Você sabe onde sua votação se concentra — <span class="cy">município e zona eleitoral?</span>',
+  lead: 'Relatório executivo com 90 anos de histórico TSE + mapa interativo + app iOS/iPadOS nativo. Inteligência que antes só os grandes tinham.',
+  ctas: [
+    { label: 'Agendar demonstração de 15 minutos', icon: 'calendar', primary: true },
+    { label: 'Solicitar relatório', icon: 'article', href: 'contato.html' }
+  ],
+  mock: {
+    title: 'city-report · São Caetano do Sul',
+    kpis: [ { v: '34,2%', l: 'Sua votação' }, { v: '12', l: 'Zonas no reduto' }, { v: '+8,4pp', l: 'vs. 2020', tone: 'cy' } ],
+    chart: [40, 62, 55, 78, 71, 92, 66], chartHi: 5,
+    rows: [ { l: 'Zona 042 · Centro', v: 'líder' }, { l: 'Zona 058 · Sta. Paula', v: '+14 pp' }, { l: 'Zona 071 · Fundão', v: 'risco' } ]
+  },
+  diag: {
+    eyebrow: 'Diagnóstico', title: 'Todo candidato já viveu isso.',
+    items: [
+      { icon: 'target', h: 'Perdeu votos e nem sabia', p: 'Perdeu votos em uma zona eleitoral decisiva e nem sabia. O dado está no TSE. Só que bruto, em CSV Latin-1, inacessível.' },
+      { icon: 'chart', h: 'Decidiu no achismo', p: 'Tomou decisão importante no "achismo" entre uma pesquisa e outra. Sem dado contínuo, cada escolha é um tiro no escuro.' },
+      { icon: 'gavel', h: 'Coligação na base da amizade', p: 'Fez coligação na base da amizade e depois descobriu que matematicamente não fazia sentido. O DeputyOptimizer existia para evitar isso.', danger: true }
+    ]
+  },
+  stack: {
+    eyebrow: 'Stack', title: 'O que entregamos.',
+    items: [
+      { icon: 'article', h: 'Relatório executivo por território', p: 'city-report em Rust: gera HTML/JSON com análise histórica agregada por município e zona eleitoral. Já geramos para o ABCDM e candidatos como Carla Morando, Lucas Bove, Ana Carolina Serra e Carlão Pignatari.' },
+      { icon: 'phone', h: 'App iOS/iPadOS nativo com WarRoom', p: 'Dashboard, Elections, Reports, Territories, WarRoom — no seu iPad durante comício ou reunião. Não é webapp. É nativo.' },
+      { icon: 'map', h: 'Mapa por município e zona', p: 'Visualização interativa D3 + SVG dos 5.570 municípios. Identifique seus redutos e territórios adversários em poucos cliques.' },
+      { icon: 'chart', h: 'Consolidador de pesquisas', p: 'Modelo estatístico hierárquico com house effects (PyMC). Agrega pesquisas ponderadas por metodologia e qualidade histórica.' },
+      { icon: 'radar', h: 'Monitoramento de sentimento', p: 'BERT multilíngue sobre Reddit e outras fontes públicas. 4 níveis de alerta. Você sabe quando seu nome sobe ou cai antes de todo mundo.' },
+      { icon: 'model', h: 'DeputyOptimizer para coligações', p: 'Matemática QE/QP para 27 UFs, simulador de vagas e otimizador guloso de coligações. Pela matemática, não pela amizade.', amber: true }
+    ]
+  },
+  fluxo: {
+    eyebrow: 'Fluxo operacional', title: 'Como você começa.',
+    steps: [
+      { h: 'Você manda o seu território', p: 'UF, município, cargo pretendido e dados da última eleição que você tem.' },
+      { h: 'Geramos seu relatório base', p: 'city-report roda em segundos. Você recebe HTML interativo com análise histórica completa do seu território.' },
+      { h: 'Onboarding na plataforma', p: 'Acesso ao dashboard, app iOS/iPadOS, consolidador e alertas configurados para o seu nome.' },
+      { h: 'Campanha com dado', p: 'Cada decisão tomada com base em onde você cresceu, onde perdeu e onde tem potencial.' }
+    ]
+  },
+  prova: {
+    eyebrow: 'Prova', title: 'Relatórios já gerados.', icon: 'verified',
+    p: 'Já entregamos relatórios para candidatos do Grande ABC como Carla Morando, Lucas Bove, Ana Carolina Serra, Carlão Pignatari, entre outros. Em demo você vê o relatório do seu território ou de um equivalente rodando ao vivo.',
+    badge: 'Relatórios prontos · Metodologia auditável'
+  },
+  escopo: {
+    eyebrow: 'Investimento', title: 'Sem preço padrão público.',
+    p: 'Inteligência eleitoral não tem preço padrão. Depende de quantos territórios, qual profundidade e qual cobertura. Agende 15 min e dimensionamos juntos.',
+    cta: { label: 'Agendar demonstração de 15 minutos' }
+  },
+  faq: {
+    items: [
+      { q: 'Funciona para vereador ou só para deputado?', a: 'Todos os cargos, todos os municípios. Temos dados de 5.570 municípios desde 1945.' },
+      { q: 'O app iOS está na App Store?', a: 'App beta disponível via TestFlight para clientes em onboarding. Entrada na App Store prevista para o 3º trimestre de 2026.' },
+      { q: 'Vocês garantem eleição?', a: 'Não. Isso seria ilegal e impossível. Entregamos dados auditáveis; a decisão de campanha é sua.' },
+      { q: 'E a LGPD?', a: 'Só fontes públicas TSE, sem microtargeting individual. Contrato com cláusula explícita.' }
+    ]
+  },
+  cta: {
+    title: 'Pronto para decidir com dado em vez de feeling?',
+    p: 'Agende 15 minutos com o fundador. Mostramos o relatório do seu território rodando na hora.',
+    buttons: [
+      { label: 'Agendar demonstração de 15 minutos', icon: 'calendar', primary: true },
+      { label: 'Ver para partidos', href: 'partidos.html', arrow: true }
+    ]
+  }
+};
+</script>
+<script src="site.js"></script>
+<script src="audience.js"></script>
+</body>
+</html>

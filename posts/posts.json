@@ -1,0 +1,67 @@
+{
+  "posts": [
+    {
+      "slug": "resolucao-tse-23732",
+      "title": "A Resolução TSE 23.732/2024, em termos práticos para a sua campanha",
+      "cat": "Compliance",
+      "date": "03 jun 2026",
+      "read": "8 min",
+      "featured": true,
+      "excerpt": "Aviso obrigatório de IA, proibição de deepfakes e trilha de auditoria: o que muda na operação de 2026 e como tratar compliance como camada nativa — não como feature lateral."
+    },
+    {
+      "slug": "deputyoptimizer-validacao",
+      "title": "Como o DeputyOptimizer validou 21 de 23 cenários com dados reais do TSE",
+      "cat": "Metodologia",
+      "date": "28 mai 2026",
+      "read": "6 min",
+      "excerpt": "O percurso de validação do simulador de QE/QP para as 27 UFs e o que os dois casos divergentes ensinaram."
+    },
+    {
+      "slug": "house-effects",
+      "title": "House effects: por que duas pesquisas discordam — e como agregar",
+      "cat": "Pesquisas",
+      "date": "21 mai 2026",
+      "read": "7 min",
+      "excerpt": "Ponderação por metodologia e amostra num modelo hierárquico para chegar a uma estimativa defensável."
+    },
+    {
+      "slug": "municipio-zona",
+      "title": "Município e zona: a granularidade que muda a decisão",
+      "cat": "Território",
+      "date": "14 mai 2026",
+      "read": "5 min",
+      "excerpt": "Por que olhar o agregado estadual esconde os redutos que decidem a eleição — e como ler a zona eleitoral."
+    },
+    {
+      "slug": "bert-portugues",
+      "title": "BERT em português: lendo o sentimento da chapa sem achismo",
+      "cat": "IA",
+      "date": "07 mai 2026",
+      "read": "6 min",
+      "excerpt": "Como classificamos menções públicas em 4 níveis de alerta e mantemos a rotulagem de IA exigida pelo TSE."
+    },
+    {
+      "slug": "csv-latin1-tse",
+      "title": "CSV Latin-1 do TSE: o imposto invisível das campanhas",
+      "cat": "Dados",
+      "date": "30 abr 2026",
+      "read": "5 min",
+      "excerpt": "Encoding quebrado, separadores inconsistentes e a ingestão em Rust que processa 8 GB em minutos."
+    },
+    {
+      "slug": "sobras-maiores-medias",
+      "title": "Sobras e maiores médias: a matemática que decide a última cadeira",
+      "cat": "Metodologia",
+      "date": "23 abr 2026",
+      "read": "8 min",
+      "excerpt": "Quociente eleitoral, quociente partidário e distribuição de sobras explicados com um caso real."
+    }
+  ],
+  "noticias": [
+    { "date": "02 jun 2026", "t": "DeputyOptimizer atualizado com o número de vagas oficial de 2026 para as 27 UFs", "src": "Release" },
+    { "date": "20 mai 2026", "t": "Ingestão TSE em streaming agora processa o histórico completo abaixo de 256 MB de RSS", "src": "Engenharia" },
+    { "date": "06 mai 2026", "t": "App iOS/iPadOS entra em beta via TestFlight para clientes em onboarding", "src": "Produto" },
+    { "date": "18 abr 2026", "t": "Consolidador Bayesiano passa a expor House Effect por instituto via API REST", "src": "Release" }
+  ]
+}

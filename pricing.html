@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Planos — VOTODATA</title>
+<meta name="description" content="Quatro níveis — Bronze, Prata, Ouro e Platina. Da campanha municipal à federação partidária. Plataforma, CampanhaIA, Radar e compliance, dimensionados pelo porte da disputa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<style>
+  .plans{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:46px;align-items:stretch}
+  @media (max-width:1080px){.plans{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:600px){.plans{grid-template-columns:1fr;max-width:420px;margin-inline:auto}}
+  .plan{position:relative;display:flex;flex-direction:column;gap:16px;padding:24px;border:1px solid var(--border);
+    border-radius:var(--r-xl);background:linear-gradient(180deg,var(--card),var(--ink-850));transition:border-color .25s,transform .25s var(--ease)}
+  .plan:hover{transform:translateY(-3px);border-color:var(--border-soft)}
+  .plan--featured{border-color:rgba(245,158,11,.45);box-shadow:var(--glow-amber)}
+  .plan__badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-size:11px;font-weight:600;letter-spacing:.04em;
+    background:var(--accent);color:#2B1701;padding:5px 13px;border-radius:var(--r-full);white-space:nowrap}
+  .plan__metal{display:flex;align-items:center;gap:9px}
+  .plan__coin{width:26px;height:26px;border-radius:50%;flex:none;border:1px solid rgba(255,255,255,.18)}
+  .plan__coin--bronze{background:linear-gradient(150deg,#E8A06A,#9A5A2B)}
+  .plan__coin--prata{background:linear-gradient(150deg,#E6ECF2,#9AA7B4)}
+  .plan__coin--ouro{background:linear-gradient(150deg,#FCE08A,#D9A100)}
+  .plan__coin--platina{background:linear-gradient(150deg,#DFF6FB,#88B7C4)}
+  .plan h3{font-family:var(--font-display);font-weight:700;font-size:21px;letter-spacing:-.02em}
+  .plan__persona{font-size:12.5px;color:var(--text-mut);line-height:1.45;min-height:54px}
+  .plan__price{display:flex;flex-direction:column;gap:2px;padding:15px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+  .plan__val{font-family:var(--font-display);font-weight:700;font-size:26px;letter-spacing:-.02em;line-height:1.05}
+  .plan__val .per{font-size:13px;font-weight:500;color:var(--text-mut)}
+  .plan__setup{font-family:var(--font-mono);font-size:12px;color:var(--text-sec);margin-top:5px}
+  .plan__setup b{color:var(--text)}
+  .plan__feats{display:flex;flex-direction:column;gap:10px;flex:1;padding:0;margin:0}
+  .plan__feats li{display:flex;gap:9px;align-items:flex-start;list-style:none;font-size:13px;color:var(--text-sec);line-height:1.4}
+  .plan__feats .ck{flex:none;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:rgba(34,197,94,.14);color:#4ADE80;margin-top:1px}
+  .plan__feats .ck svg{width:11px;height:11px}
+  .plan__feats li.hi{color:var(--text);font-weight:500}
+  .plan__feats li.hi .ck{background:rgba(245,158,11,.16);color:var(--vd-amber-400)}
+  .plan__cta{display:flex;flex-direction:column;gap:8px}
+  .addons{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:center;margin-top:24px;
+    padding:18px 22px;border:1px dashed var(--border);border-radius:var(--r-lg);background:rgba(148,163,184,.03)}
+  .addons span{font-size:13px;color:var(--text-sec)}
+  .addons b{color:var(--text)}
+  .addons .sep{color:var(--border-soft)}
+  .addons .early{color:var(--vd-amber-400);font-weight:600}
+  .steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+  @media (max-width:760px){.steps3{grid-template-columns:1fr}}
+</style>
+</head>
+<body data-page="pricing">
+
+<section class="hero" data-screen-label="Planos — Hero" style="padding-bottom:24px">
+  <div class="wrap" style="max-width:1000px">
+    <span class="pill"><span class="dot dot--live"></span>Service-book · Eleições 2026</span>
+    <h1 class="display" style="font-size:clamp(32px,4.6vw,52px);margin-top:20px">Da câmara municipal à <span class="cy">federação partidária.</span></h1>
+    <p class="lead" style="margin-top:20px">Quatro níveis, dimensionados pelo porte da disputa. Plataforma, microdados, CampanhaIA no WhatsApp, Radar de alertas e compliance — você contrata o tamanho da sua operação, não um pacote genérico.</p>
+    <div class="hero__cta">
+      <a class="btn btn--primary btn--lg" href="mailto:contato@votodata.net?subject=Demo%20VotoData%20-%20planos"><i data-i="calendar"></i>Agendar demo gratuita</a>
+      <a class="btn btn--ghost btn--lg" href="https://wa.me/5511951417671?text=Quero%20entender%20os%20planos%20da%20VotoData" target="_blank" rel="noopener"><i data-i="whatsapp"></i>Falar no WhatsApp</a>
+    </div>
+    <p class="muted" style="font-size:12.5px;margin-top:18px">Valores em faixa, conforme escopo e território. A proposta final é fechada após um diagnóstico rápido.</p>
+  </div>
+</section>
+
+<!-- PLANOS -->
+<section class="section" id="planos" style="padding-top:24px">
+  <div class="wrap">
+    <div class="plans">
+      <!-- BRONZE -->
+      <div class="plan" data-reveal>
+        <div class="plan__metal"><span class="plan__coin plan__coin--bronze"></span><h3>Bronze</h3></div>
+        <p class="plan__persona">Vereador · prefeito de cidade pequena · deputado estadual com base local.</p>
+        <div class="plan__price">
+          <span class="plan__val">R$ 3,9–8k<span class="per"> / mês</span></span>
+          <span class="plan__setup">Setup <b>R$ 8–15k</b></span>
+        </div>
+        <ul class="plan__feats">
+          <li><span class="ck"><i data-i="check"></i></span>Plataforma · 3 usuários</li>
+          <li><span class="ck"><i data-i="check"></i></span>Base TSE consolidada</li>
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>CampanhaIA · 10k msg/mês</li>
+          <li><span class="ck"><i data-i="check"></i></span>Radar · 5 alertas</li>
+          <li><span class="ck"><i data-i="check"></i></span>Treinamento · Módulo 1</li>
+        </ul>
+        <div class="plan__cta">
+          <a class="btn btn--ghost btn--block" href="mailto:contato@votodata.net?subject=Plano%20Bronze%20VotoData%202026"><i data-i="calendar"></i>Agendar demo</a>
+          <a class="btn btn--link" href="https://wa.me/5511951417671?text=Tenho%20interesse%20no%20plano%20Bronze" target="_blank" rel="noopener" style="justify-content:center"><i data-i="whatsapp" style="width:15px"></i>WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- PRATA -->
+      <div class="plan plan--featured" data-reveal>
+        <span class="plan__badge">Mais escolhido</span>
+        <div class="plan__metal"><span class="plan__coin plan__coin--prata"></span><h3>Prata</h3></div>
+        <p class="plan__persona">Deputado estadual/federal · prefeito de cidade média (50–500k).</p>
+        <div class="plan__price">
+          <span class="plan__val">R$ 12–20k<span class="per"> / mês</span></span>
+          <span class="plan__setup">Setup <b>R$ 25–35k</b></span>
+        </div>
+        <ul class="plan__feats">
+          <li><span class="ck"><i data-i="check"></i></span>Plataforma · 8 usuários</li>
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>Microdados de seção</li>
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>CampanhaIA · 50k msg/mês</li>
+          <li><span class="ck"><i data-i="check"></i></span>Modelo de propensão</li>
+          <li><span class="ck"><i data-i="check"></i></span>API completa + Compliance</li>
+        </ul>
+        <div class="plan__cta">
+          <a class="btn btn--primary btn--block" href="mailto:contato@votodata.net?subject=Plano%20Prata%20VotoData%202026"><i data-i="calendar"></i>Agendar demo</a>
+          <a class="btn btn--link" href="https://wa.me/5511951417671?text=Tenho%20interesse%20no%20plano%20Prata" target="_blank" rel="noopener" style="justify-content:center"><i data-i="whatsapp" style="width:15px"></i>WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- OURO -->
+      <div class="plan" data-reveal>
+        <div class="plan__metal"><span class="plan__coin plan__coin--ouro"></span><h3>Ouro</h3></div>
+        <p class="plan__persona">Senador · governador · prefeito de capital · deputado federal de bancada.</p>
+        <div class="plan__price">
+          <span class="plan__val">R$ 25–50k<span class="per"> / mês</span></span>
+          <span class="plan__setup">Setup <b>R$ 52–80k</b></span>
+        </div>
+        <ul class="plan__feats">
+          <li><span class="ck"><i data-i="check"></i></span>Plataforma · 20 usuários</li>
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>Diagnóstico 4 semanas incluso</li>
+          <li><span class="ck"><i data-i="check"></i></span>Modelo de probabilidade de vitória</li>
+          <li><span class="ck"><i data-i="check"></i></span>Segmentação + Forecasting</li>
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>CampanhaIA Ouro + Gerador</li>
+          <li><span class="ck"><i data-i="check"></i></span>War Room Dashboard</li>
+          <li><span class="ck"><i data-i="check"></i></span>SSO corporativo</li>
+        </ul>
+        <div class="plan__cta">
+          <a class="btn btn--ghost btn--block" href="mailto:contato@votodata.net?subject=Plano%20Ouro%20VotoData%202026"><i data-i="calendar"></i>Agendar demo</a>
+          <a class="btn btn--link" href="https://wa.me/5511951417671?text=Tenho%20interesse%20no%20plano%20Ouro" target="_blank" rel="noopener" style="justify-content:center"><i data-i="whatsapp" style="width:15px"></i>WhatsApp</a>
+        </div>
+      </div>
+
+      <!-- PLATINA -->
+      <div class="plan" data-reveal>
+        <div class="plan__metal"><span class="plan__coin plan__coin--platina"></span><h3>Platina</h3></div>
+        <p class="plan__persona">Partido · federação · coligação multi-candidato · agência white-label.</p>
+        <div class="plan__price">
+          <span class="plan__val">R$ 50–120k<span class="per"> / mês</span></span>
+          <span class="plan__setup">Setup <b>R$ 100k+</b></span>
+        </div>
+        <ul class="plan__feats">
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>Usuários ilimitados</li>
+          <li class="hi"><span class="ck"><i data-i="check"></i></span>Multi-candidato (até 50)</li>
+          <li><span class="ck"><i data-i="check"></i></span>White-label disponível</li>
+          <li><span class="ck"><i data-i="check"></i></span>Equipe dedicada VotoData</li>
+          <li><span class="ck"><i data-i="check"></i></span>API ilimitada</li>
+          <li><span class="ck"><i data-i="check"></i></span>SLA premium</li>
+          <li><span class="ck"><i data-i="check"></i></span>Modelos customizados</li>
+        </ul>
+        <div class="plan__cta">
+          <a class="btn btn--ghost btn--block" href="mailto:contato@votodata.net?subject=Plano%20Platina%20VotoData%202026"><i data-i="calendar"></i>Falar com vendas</a>
+          <a class="btn btn--link" href="https://wa.me/5511951417671?text=Tenho%20interesse%20no%20plano%20Platina" target="_blank" rel="noopener" style="justify-content:center"><i data-i="whatsapp" style="width:15px"></i>WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD-ONS -->
+    <div class="addons" data-reveal>
+      <span><b>Add-on Compliance Premium</b> · +R$ 5k/mês</span><span class="sep">·</span>
+      <span><b>Piloto de 15 dias</b> · R$ 5k</span><span class="sep">·</span>
+      <span class="early">20% off Early Adopter até jul/2026</span>
+    </div>
+  </div>
+</section>
+
+<!-- COMO CONTRATAR -->
+<section class="section section--tight">
+  <div class="wrap">
+    <div class="section-head" data-reveal><span class="eyebrow">Como contratar</span><h2 class="h2">Do primeiro contato à operação.</h2></div>
+    <div class="steps3">
+      <div class="step" data-reveal><span class="step__n">01</span><h3>Diagnóstico</h3><p>15 minutos para entender cargo, território e objetivo. Dimensionamos o nível certo — sem empurrar pacote.</p></div>
+      <div class="step" data-reveal><span class="step__n">02</span><h3>Proposta &amp; setup</h3><p>Proposta fechada na faixa do plano. Setup configura plataforma, usuários, base TSE e CampanhaIA.</p></div>
+      <div class="step" data-reveal><span class="step__n">03</span><h3>Operação</h3><p>Time treinado, dashboards no ar, alertas rodando. Suporte conforme o SLA do plano.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" style="padding-top:8px">
+  <div class="wrap" style="max-width:880px">
+    <div class="section-head" data-reveal style="margin-bottom:30px"><span class="eyebrow eyebrow--amber">FAQ</span><h2 class="h2">Perguntas frequentes.</h2></div>
+    <div class="faq" data-reveal>
+      <div class="faq__item"><button class="faq__q">Por que os preços são faixas e não valores fixos?<i data-i="plus"></i></button><div class="faq__a"><p>Porque o esforço varia com o território e o escopo: número de municípios, profundidade dos microdados, volume de mensagens da CampanhaIA e usuários. A faixa define o intervalo; a proposta final sai do diagnóstico, sem surpresa depois.</p></div></div>
+      <div class="faq__item"><button class="faq__q">O que é o Setup?<i data-i="plus"></i></button><div class="faq__a"><p>É o investimento único de implantação: configuração da plataforma, provisionamento de usuários, consolidação da base TSE do seu território e ativação da CampanhaIA. Cobrado uma vez, no início do contrato.</p></div></div>
+      <div class="faq__item"><button class="faq__q">O que é a CampanhaIA?<i data-i="plus"></i></button><div class="faq__a"><p>É o atendimento inteligente da campanha por WhatsApp: respostas automáticas com IA, triagem e disparo dentro dos limites do plano (10k a 50k mensagens/mês, ilimitado no Platina). Todo conteúdo gerado por IA é rotulado conforme a Resolução TSE 23.732/2024.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Posso testar antes de fechar?<i data-i="plus"></i></button><div class="faq__a"><p>Sim. O Piloto de 15 dias (R$ 5k) roda a plataforma com dados do seu território antes do contrato. Quem fecha até jul/2026 ainda tem 20% de desconto Early Adopter.</p></div></div>
+      <div class="faq__item"><button class="faq__q">Vocês garantem vitória?<i data-i="plus"></i></button><div class="faq__a"><p>Não. Entregamos dados públicos auditáveis e ferramenta de análise. A decisão de campanha é sua. O VotoData não recomenda, ranqueia nem sugere candidatos ou partidos.</p></div></div>
+    </div>
+    <p class="disclaimer" style="margin:32px auto 0;text-align:center"><b>Disclaimer.</b> Todas as informações disponíveis no VotoData são extraídas exclusivamente de fontes públicas oficiais. A plataforma não recomenda, ranqueia nem sugere candidatos ou partidos.</p>
+  </div>
+</section>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(26 26)" fill="none" stroke="#06B6D4" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="10" width="10" height="38" rx="2"/><rect x="15" y="2" width="10" height="46" rx="2" stroke="#F59E0B"/><rect x="28" y="14" width="10" height="34" rx="2"/><rect x="41" y="6" width="8" height="42" rx="2"/></g></svg>
+</template>
+
+<script src="site.js"></script>
+</body>
+</html>

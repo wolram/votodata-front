@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de Influência Regional — VOTODATA</title>
+<meta name="description" content="Choropleth interativo do Brasil: eleitorado e população por unidade federativa, dos 5.570 municípios à zona eleitoral. Fonte oficial TSE/IBGE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="mapa.css">
+</head>
+<body data-page="produto">
+
+<!-- ============ INTRO ============ -->
+<header class="section" style="padding-top:calc(var(--header-h) + 60px);padding-bottom:0">
+  <div class="wrap">
+    <span class="eyebrow">Inteligência territorial</span>
+    <h1 class="h1" style="margin-top:18px;max-width:20ch">Mapa de Influência Regional</h1>
+    <p class="lead" style="margin-top:20px">Eleitorado e população por unidade federativa — dos 5.570 municípios à zona eleitoral.
+      Passe o mouse, clique para abrir o perfil de cada estado e troque a métrica em tempo real. Fonte oficial, proveniência auditável.</p>
+    <div class="flex wrap-gap" style="margin-top:24px">
+      <span class="tag"><i data-i="map" style="width:15px"></i>Mapa por município e zona</span>
+      <span class="tag"><i data-i="trendingUp" style="width:15px"></i>Score de oportunidade</span>
+      <span class="tag"><i data-i="radar" style="width:15px"></i>Radar de adversários</span>
+      <span class="tag"><i data-i="target" style="width:15px"></i>Agenda territorial</span>
+    </div>
+  </div>
+</header>
+
+<!-- ============ MAPA ============ -->
+<section class="section" style="padding-top:46px">
+  <div class="wrap">
+    <div class="vdmap" data-vd-map data-variant="full" data-metric="eleitores" data-palette="heat" data-reveal>
+      <div class="vdmap-layout">
+        <div class="vdmap-stage panel" data-vdmap-stage></div>
+        <div class="vdmap-aside" data-vdmap-aside></div>
+      </div>
+      <div class="vdmap-kpis" data-vdmap-kpis></div>
+    </div>
+    <p class="muted" style="font-size:12.5px;margin-top:18px;font-family:var(--font-mono);letter-spacing:.02em">
+      Geometria: IBGE · Malha 2022 · projeção Albers Equal-Area · Eleitorado ~TSE 2024 · População ~IBGE Censo 2022.
+    </p>
+  </div>
+</section>
+<!-- 
+<div id="tweaks-root"></div>
+-->
+
+<!-- chrome + dados + engine -->
+<script src="site.js"></script>
+<script src="mapa.data.js"></script>
+<script src="mapa.munis.js"></script>
+<script src="mapa.js"></script>
+
+<!-- Tweaks panel (React) - Commented for production
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": "Calor",
+  "intensity": 0.3
+}/*EDITMODE-END*/;
+const PAL = { "Calor": "heat", "Ciano": "cyan", "Região": "region" };
+
+function MapTweaks() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  React.useEffect(() => {
+    function apply() {
+      if (!window.vdMapApply) { setTimeout(apply, 120); return; }
+      window.vdMapApply({ palette: PAL[t.palette] || "heat", exponent: t.intensity });
+    }
+    apply();
+  }, [t.palette, t.intensity]);
+
+  return (
+    <TweaksPanel title="ESTILO DO MAPA">
+      <TweakSection label="Estilo do mapa" />
+      <TweakRadio label="Paleta" value={t.palette}
+        options={["Calor", "Ciano", "Região"]}
+        onChange={(v) => setTweak("palette", v)} />
+      <TweakSlider label="Intensidade da cor" value={t.intensity}
+        min={0.3} max={1} step={0.05}
+        onChange={(v) => setTweak("intensity", v)} />
+    </TweaksPanel>
+  );
+}
+ReactDOM.createRoot(document.getElementById("tweaks-root")).render(<MapTweaks />);
+</script>
+-->
+
+</body>
+</html>

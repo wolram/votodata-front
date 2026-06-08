@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Partidos — Party Command Center · VOTODATA</title>
+<meta name="description" content="Simulador proporcional completo para 27 UFs com DeputyOptimizer. Defina coligações pela matemática, não pela amizade.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="site.css">
+<link rel="stylesheet" href="audience.css">
+</head>
+<body data-page="partidos">
+<main id="app"></main>
+
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect width="100" height="100" rx="20" fill="#0F172A"/><g transform="translate(28 30)" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 40 V24M16 40 V12M30 40 V20M44 40 V6" stroke="#22D0EE"/><path d="M2 40 H44"/></g></svg>
+</template>
+
+<script>
+window.PAGE = {
+  page: 'partidos',
+  eyebrow: 'Para partidos e coligações · 2026',
+  demo: 'mailto:contato@votodata.net?subject=Demo%20VotoData%20-%20partido%20coliga%C3%A7%C3%A3o',
+  layout: { hero: 'split', stack: 'cards' },
+  title: 'Defina coligações pela matemática. <span class="cy">Não pela amizade.</span>',
+  lead: 'Simulador proporcional completo para 27 UFs, consolidador de pesquisas eleitorais, monitoramento de sentimento de toda a chapa e relatórios por território. Para quem decide quem entra na lista.',
+  ctas: [
+    { label: 'Agendar demo', icon: 'calendar', primary: true },
+    { label: 'Ver para candidatos', href: 'candidatos.html', arrow: true }
+  ],
+  mock: {
+    title: 'DeputyOptimizer · SP · Dep. Estadual',
+    kpis: [ { v: '312.847', l: 'Quociente eleitoral' }, { v: '89.527', l: 'Quociente partidário' }, { v: '4', l: 'Cadeiras', tone: 'cy' } ],
+    bars: [
+      { n: 'Candidato A', w: 100, v: '148.200', st: 'ok', stl: 'Eleito' },
+      { n: 'Candidato B', w: 62, v: '92.400', st: 'ok', stl: 'Eleito' },
+      { n: 'Candidato C', w: 50, v: '74.100', fill: 'simbar__fill--am', st: 'am', stl: 'Sobra' },
+      { n: 'Candidato D', w: 34, v: '51.200', fill: 'simbar__fill--mut', st: 'risk', stl: 'Risco' }
+    ]
+  },
+  diag: {
+    eyebrow: 'Diagnóstico', title: 'Três dores que o diretório já conhece.',
+    items: [
+      { icon: 'model', h: 'Coligação no feeling', p: 'Você está montando coligação baseado em conversas de bastidor. Qual combinação de partidos realmente maximiza cadeiras? A matemática do QE/QP responde — você tem a planilha certa para 27 UFs?' },
+      { icon: 'chart', h: 'Pesquisas contraditórias', p: 'Uma pesquisa diz 22%, outra diz 28% para o mesmo candidato — metodologias diferentes, house effects desconhecidos. O diretório não tem como agregar isso de forma defensável.' },
+      { icon: 'target', h: 'Falta de visão da chapa', p: 'Você não tem como monitorar o sentimento de 30 candidatos da chapa ao mesmo tempo. Quando um explode negativamente, você fica sabendo na imprensa.', danger: true }
+    ]
+  },
+  stack: {
+    eyebrow: 'Stack', title: 'O que entregamos para sua chapa.',
+    items: [
+      { icon: 'cpu', h: 'DeputyOptimizer 2026', p: 'Matemática proporcional brasileira completa: QE, QP, distribuição inteira + sobras por maior média. Vagas para todas as 27 UFs. Otimizador guloso testa combinações e rankeia por maximização de cadeiras.', amber: true },
+      { icon: 'chart', h: 'Consolidador de pesquisas eleitorais', p: 'Modelo hierárquico PyMC com house effects, ponderação por metodologia e amostra. Agrega todas as pesquisas publicadas numa estimativa defensável.' },
+      { icon: 'radar', h: 'Monitoramento de sentimento da chapa', p: 'BERT multilíngue, coleta Reddit e outras fontes públicas. 4 níveis de alerta. Monitora todos os candidatos da sua lista simultaneamente.' },
+      { icon: 'map', h: 'Análise territorial por UF', p: 'Histórico normalizado desde 1945: onde o partido cresceu, perdeu, tem reduto. CEPESPData + TSE.' },
+      { icon: 'phone', h: 'App iOS/iPadOS multi-candidato', p: 'Dashboard, Elections, Reports e WarRoom. Para o coordenador que está em campo e precisa de dado na palma da mão.' },
+      { icon: 'api', h: 'API para integração', p: 'REST + webhooks. Integra com seus sistemas internos de gestão de campanha.' }
+    ]
+  },
+  fluxo: {
+    eyebrow: 'Fluxo operacional', title: 'Como funciona na prática.',
+    steps: [
+      { h: 'Mapeamento inicial', p: 'Você passa a lista de candidatos por UF e cargo. Fazemos o onboarding da chapa completa.' },
+      { h: 'Simulação de coligação', p: 'O DeputyOptimizer roda cenários para sua UF. Você vê quais combinações maximizam cadeiras.' },
+      { h: 'Monitoramento contínuo', p: 'Cada candidato com alerta próprio. Dashboard consolidado para você, acesso individual para cada candidato.' },
+      { h: 'Relatório semanal da chapa', p: 'Resumo executivo: situação de cada candidato, tendências de sentimento e alertas pendentes.' }
+    ]
+  },
+  prova: {
+    eyebrow: 'Prova', title: 'Validado com dados reais do TSE.', icon: 'verified',
+    p: 'O DeputyOptimizer foi validado com dados históricos: 21 de 23 testes passando com os resultados reais do TSE. A matemática QE/QP está correta para todas as 27 UFs.',
+    badge: 'Validado com dados 2022 · 27 UFs cobertas'
+  },
+  escopo: {
+    eyebrow: 'Escopo', title: 'Sem pricing público.',
+    p: 'Cada partido tem necessidades diferentes: quantidade de candidatos, cobertura territorial, nível de integração. A conversa define o escopo. 15 minutos com o fundador.',
+    cta: { label: 'Agendar demo' }
+  },
+  faq: {
+    items: [
+      { q: 'O simulador cobre deputado federal e estadual?', a: 'Sim. QE/QP para câmara federal e assembleias estaduais de todas as 27 UFs, com o número correto de vagas 2026.' },
+      { q: 'Funciona para partido pequeno sem estrutura de dados?', a: 'Sim. Os dados do TSE são públicos — você não precisa ter nada. Trazemos o histórico e você só valida.' },
+      { q: 'E para eleição presidencial / senado?', a: 'Senado sim (majoritário, cobrimos análise histórica). Presidencial sim para histórico e sentimento. Coligação só faz sentido no proporcional.' },
+      { q: 'Vocês trabalham com partidos de todos os espectros?', a: 'Sim. Somos apartidários e trabalhamos com qualquer legenda registrada no TSE. Dado não tem ideologia.' }
+    ]
+  },
+  cta: {
+    title: 'Pronto para conversar?',
+    p: 'Agende 15 minutos com o fundador. Mostramos o simulador rodando, respondemos sobre escopo e tiramos dúvidas regulatórias.',
+    buttons: [
+      { label: 'Agendar demo', icon: 'calendar', primary: true },
+      { label: 'Ver para agências', href: 'agencies.html', arrow: true }
+    ]
+  }
+};
+</script>
+<script src="site.js"></script>
+<script src="audience.js"></script>
+</body>
+</html>
