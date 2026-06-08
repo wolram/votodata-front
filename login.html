@@ -180,11 +180,29 @@
     });
   });
 
+  const sendLead = async (data) => {
+    try {
+      await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+    } catch (e) { console.error('Lead capture failed', e); }
+  };
+
   // Protótipo: o backend (api.votodata.net) fará a autenticação real.
-  fL.addEventListener('submit', function (e) { e.preventDefault(); alert('Protótipo de login — conectar a api.votodata.net para autenticação real.'); });
+  fL.addEventListener('submit', function (e) { 
+    e.preventDefault(); 
+    const email = fL.querySelector('input[type="email"]').value;
+    sendLead({ type: 'login_attempt', email, msg: 'Tentativa de login no protótipo' });
+    alert('Protótipo de login — sua tentativa foi registrada para acompanhamento.'); 
+  });
   fS.addEventListener('submit', function (e) {
     e.preventDefault();
     var nome = document.getElementById('snome').value, email = document.getElementById('semail').value, org = document.getElementById('sorg').value;
+    
+    sendLead({ type: 'acesso_request', nome, email, org, msg: 'Solicitou acesso via formulário de login' });
+
     window.location.href = 'mailto:contato@votodata.net?subject=' + encodeURIComponent('Solicitação de acesso — ' + org) +
       '&body=' + encodeURIComponent('Nome: ' + nome + '\nE-mail: ' + email + '\nOrganização: ' + org);
   });

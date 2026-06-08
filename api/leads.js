@@ -1,61 +1,53 @@
 // votodata-front/api/leads.js
-import { db } from '@vercel/postgres';
+import { db } from '@vercel-postgres';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { nome, email, org, perfil, msg } = req.body;
+  // 'type' ajuda a diferenciar: 'contato', 'login_attempt', 'acesso_request'
+  const { type = 'contato', nome, email, org, perfil, msg, metadata = {} } = req.body;
 
-  // 1. Tentar salvar no Banco de Dados (Vercel Postgres)
+  if (!email) {
+    return res.status(400).json({ error: 'E-mail é obrigatório' });
+  }
+
+  // 1. Banco de Dados
   let dbError = null;
   try {
     const client = await db.connect();
     await client.sql`
-      INSERT INTO leads (nome, email, org, perfil, msg)
-      VALUES (${nome}, ${email}, ${org}, ${perfil}, ${msg});
+      INSERT INTO leads (type, nome, email, org, perfil, msg, metadata)
+      VALUES (${type}, ${nome}, ${email}, ${org}, ${perfil}, ${msg}, ${JSON.stringify(metadata)});
     `;
   } catch (e) {
-    console.error('Erro ao salvar no Banco:', e);
+    console.error('Erro Banco:', e);
     dbError = e;
   }
 
-  // 2. Tentar enviar para o Webhook (n8n, Slack, etc)
+  // 2. Webhook (Notificação)
   const WEBHOOK_URL = process.env.LEADS_WEBHOOK_URL;
-  let webhookStatus = 'not_configured';
-  
   if (WEBHOOK_URL) {
     try {
-      const response = await fetch(WEBHOOK_URL, {
+      await fetch(WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           project: 'VotoData',
+          event: `Novo Lead: ${type}`,
           nome, email, org, perfil, msg,
-          db_saved: !dbError,
           timestamp: new Date().toISOString()
         }),
       });
-      webhookStatus = response.ok ? 'sent' : 'failed';
     } catch (e) {
-      console.error('Erro no Webhook:', e);
-      webhookStatus = 'error';
+      console.error('Erro Webhook:', e);
     }
   }
 
-  // Se salvou no banco ou enviou o webhook, consideramos sucesso
-  if (!dbError || webhookStatus === 'sent') {
-    return res.status(200).json({ 
-      success: true, 
-      message: 'Lead capturado com sucesso',
-      details: { database: !dbError, webhook: webhookStatus }
-    });
+  if (!dbError) {
+    return res.status(200).json({ success: true, type });
   }
 
-  // Se tudo falhar, retornamos erro para o frontend disparar o mailto:
-  return res.status(500).json({ 
-    error: 'Falha total na captura automática',
-    fallback: 'mailto'
-  });
+  return res.status(500).json({ error: 'Erro ao processar', fallback: 'mailto' });
 }
