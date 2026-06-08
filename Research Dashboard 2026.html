@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VotoData · Research — Election Intelligence 2026</title>
+
+    <!-- Fonts (design system) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- VotoData Design System -->
+    <link rel="stylesheet" href="ds/tokens.css">
+    <link rel="stylesheet" href="ds/components.css">
+    <link rel="stylesheet" href="ds/cloudflare.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            line-height: var(--leading-normal);
+        }
+        /* dotted product backdrop */
+        body::before {
+            content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: radial-gradient(rgba(148,163,184,0.06) 1px, transparent 1px);
+            background-size: 26px 26px;
+            mask-image: radial-gradient(ellipse 80% 60% at 70% 0%, #000 30%, transparent 75%);
+        }
+        ::selection { background: rgba(6,182,212,0.30); }
+
+        /* ---------- HEADER ---------- */
+        .header {
+            background: linear-gradient(180deg, rgba(15,23,42,0.92), rgba(8,13,26,0.82));
+            backdrop-filter: blur(12px);
+            padding: 0 var(--space-6);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header::after {
+            content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+            background: linear-gradient(90deg, var(--vd-cyan-500), var(--vd-amber-500) 70%, transparent);
+            opacity: 0.7;
+        }
+        .header-inner {
+            max-width: 1400px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+            height: 68px; gap: var(--space-6);
+        }
+        .brand { display: flex; align-items: center; gap: var(--space-3); flex: none; }
+        .brand img { width: 38px; height: 38px; }
+        .brand .wm {
+            font-family: var(--font-display); font-weight: 700; font-size: var(--text-lg);
+            letter-spacing: -0.01em; line-height: 1;
+        }
+        .brand .wm b { color: var(--vd-cyan-400); font-weight: 700; }
+        .brand .tag {
+            display: block; font-family: var(--font-mono); font-size: 10px; font-weight: 500;
+            color: var(--text-muted); letter-spacing: var(--tracking-wider); text-transform: uppercase; margin-top: 3px;
+        }
+
+        .nav-tabs { display: flex; gap: 2px; }
+        .nav-tab {
+            font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500;
+            color: var(--text-muted); background: transparent; border: none; cursor: pointer;
+            padding: 10px var(--space-4); border-radius: var(--radius-md);
+            transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+        }
+        .nav-tab:hover { color: var(--text-secondary); background: rgba(148,163,184,0.08); }
+        .nav-tab.active { color: var(--on-primary); background: var(--primary); font-weight: 600; }
+
+        /* ---------- MAIN ---------- */
+        .main { max-width: 1400px; margin: 0 auto; padding: var(--space-8) var(--space-6) var(--space-12); position: relative; z-index: 1; }
+
+        .page-head { margin-bottom: var(--space-8); }
+        .page-head .eyebrow {
+            display: inline-flex; align-items: center; gap: var(--space-2);
+            font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: 600;
+            text-transform: uppercase; letter-spacing: var(--tracking-wider); color: var(--vd-cyan-400);
+            margin-bottom: var(--space-3);
+        }
+        .page-head .eyebrow::before { content: ""; width: 18px; height: 2px; background: var(--vd-amber-500); }
+        .page-head h1 {
+            font-family: var(--font-display); font-weight: 700; font-size: var(--text-h1);
+            letter-spacing: var(--tracking-tight); line-height: var(--leading-tight); margin: 0;
+        }
+        .page-head p { font-size: var(--text-base); color: var(--text-secondary); max-width: 70ch; margin: var(--space-2) 0 0; text-wrap: pretty; }
+
+        /* hero stats grid */
+        .hero-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-4); margin-bottom: var(--space-8); }
+        .stat-card {
+            background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: var(--space-5); position: relative; overflow: hidden;
+            transition: border-color var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
+        }
+        .stat-card::after {
+            content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px;
+            background: linear-gradient(180deg, var(--vd-cyan-500), var(--vd-cyan-700)); opacity: 0.9;
+        }
+        .stat-card:hover { transform: translateY(-2px); border-color: var(--border-soft); box-shadow: var(--shadow-2); }
+        .stat-card.is-accent::after { background: linear-gradient(180deg, var(--vd-amber-400), var(--vd-amber-600)); }
+        .stat-value {
+            font-family: var(--font-display); font-size: 34px; font-weight: 700; line-height: 1;
+            color: var(--text); font-variant-numeric: tabular-nums; letter-spacing: -0.01em;
+        }
+        .stat-card.is-accent .stat-value { color: var(--vd-amber-400); }
+        .stat-card:not(.is-accent) .stat-value { color: var(--vd-cyan-300); }
+        .stat-label { font-size: var(--text-xs); color: var(--text-secondary); margin-top: var(--space-3); text-transform: uppercase; letter-spacing: var(--tracking-wide); font-weight: 600; }
+        .stat-sub { font-size: var(--text-xs); color: var(--text-muted); margin-top: 4px; }
+
+        /* section titles */
+        .section-title {
+            font-family: var(--font-display); font-size: var(--text-h3); font-weight: 600;
+            margin: var(--space-10) 0 var(--space-5); display: flex; align-items: center; gap: var(--space-3);
+        }
+        .section-title::before { content: ''; width: 4px; height: 22px; background: var(--vd-amber-500); border-radius: 2px; }
+
+        /* charts grid + cards */
+        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(440px, 1fr)); gap: var(--space-5); margin-bottom: var(--space-6); }
+        .chart-card { background: var(--surface-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-5); }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); gap: var(--space-3); }
+        .chart-title { font-family: var(--font-display); font-size: var(--text-base); font-weight: 600; color: var(--text); }
+        .chart-badge {
+            font-family: var(--font-mono); font-size: var(--text-2xs); font-weight: 700; letter-spacing: var(--tracking-wide);
+            text-transform: uppercase; padding: 3px 9px; border-radius: var(--radius-full);
+            background: rgba(6,182,212,0.14); color: var(--vd-cyan-300); border: 1px solid rgba(6,182,212,0.25); white-space: nowrap;
+        }
+        .chart-badge.is-accent { background: var(--vd-warning-bg); color: var(--vd-amber-400); border-color: rgba(245,158,11,0.3); }
+        .chart-container { position: relative; height: 280px; }
+
+        /* progress */
+        .progress-item { margin-bottom: var(--space-4); }
+        .progress-label { display: flex; justify-content: space-between; font-size: var(--text-sm); margin-bottom: var(--space-2); color: var(--text-secondary); }
+        .progress-bar { height: 8px; background: var(--vd-ink-700); border-radius: var(--radius-full); overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: var(--radius-full); transition: width 1s ease; }
+
+        /* senate grid */
+        .senate-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 6px; margin-top: var(--space-4); }
+        .senate-seat {
+            aspect-ratio: 1; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-mono); font-size: 9px; font-weight: 700; color: #fff; cursor: pointer; transition: transform var(--dur-fast);
+        }
+        .senate-seat:hover { transform: scale(1.18); z-index: 10; }
+        .seat-d { background: var(--vd-info); }
+        .seat-r { background: var(--vd-danger); }
+        .seat-toss { background: var(--vd-warning); color: #2B1701; }
+
+        /* model table */
+        .model-table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+        .model-table th {
+            text-align: left; padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border);
+            color: var(--text-muted); font-weight: 600; text-transform: uppercase; font-size: var(--text-xs); letter-spacing: var(--tracking-wide);
+        }
+        .model-table td { padding: var(--space-3) var(--space-4); border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+        .model-table td strong { color: var(--text); font-weight: 600; }
+        .model-table tbody tr { transition: background var(--dur-fast) var(--ease-out); }
+        .model-table tbody tr:hover td { background: rgba(6,182,212,0.05); }
+        .model-table tbody tr:last-child td { border-bottom: none; }
+        .score-cell { display: inline-flex; align-items: center; gap: var(--space-2); font-variant-numeric: tabular-nums; color: var(--text); font-weight: 500; }
+        .score-bar { display: inline-block; height: 6px; border-radius: 3px; }
+
+        /* footer */
+        .footer { text-align: center; padding: var(--space-10) var(--space-6); color: var(--text-muted); font-size: var(--text-xs); border-top: 1px solid var(--border); margin-top: var(--space-12); }
+        .footer strong { color: var(--text-secondary); }
+        .footer .mono { font-family: var(--font-mono); }
+
+        /* tabs */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        @media (prefers-reduced-motion: no-preference) {
+            .tab-content.active { animation: fadeIn 0.3s var(--ease-out) both; }
+        }
+        @keyframes fadeIn { from { transform: translateY(8px); } to { transform: translateY(0); } }
+
+        .legend-row { display: flex; gap: var(--space-5); margin-bottom: var(--space-4); flex-wrap: wrap; }
+        .legend-row span { display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xs); color: var(--text-secondary); }
+        .legend-row i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+
+        @media (max-width: 768px) {
+            .charts-grid { grid-template-columns: 1fr; }
+            .nav-tabs { display: none; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); }
+            .senate-grid { grid-template-columns: repeat(7, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <div class="brand">
+                <img src="assets/brasao.png" alt="VotoData">
+                <div>
+                    <div class="wm">Voto<b>Data</b></div>
+                    <span class="tag">Research Unit</span>
+                </div>
+            </div>
+            <nav class="nav-tabs">
+                <button class="nav-tab active" onclick="showTab('overview', this)">Visão Geral</button>
+                <button class="nav-tab" onclick="showTab('brazil', this)">Brasil 2026</button>
+                <button class="nav-tab" onclick="showTab('usa', this)">EUA Midterms</button>
+                <button class="nav-tab" onclick="showTab('europe', this)">Europa</button>
+                <button class="nav-tab" onclick="showTab('models', this)">Modelos ML</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- TAB: OVERVIEW -->
+        <div id="overview" class="tab-content active">
+            <div class="page-head">
+                <span class="eyebrow">Election Intelligence · 2026</span>
+                <h1>Panorama global de eleições</h1>
+                <p>Comparativo de metodologias, consultorias e calendário eleitoral para o superciclo de 2026 — Brasil, EUA e Europa.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-value">60+</div>
+                    <div class="stat-label">Países com Eleições</div>
+                    <div class="stat-sub">1,5 bi de eleitores em 2026</div>
+                </div>
+                <div class="stat-card is-accent">
+                    <div class="stat-value">54/81</div>
+                    <div class="stat-label">Senado BR em Jogo</div>
+                    <div class="stat-sub">2/3 das cadeiras</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">50%</div>
+                    <div class="stat-label">Prob. Dem no Senado EUA</div>
+                    <div class="stat-sub">The Economist model</div>
+                </div>
+                <div class="stat-card is-accent">
+                    <div class="stat-value">D+6.1</div>
+                    <div class="stat-label">Generic Ballot EUA</div>
+                    <div class="stat-sub">Silver Bulletin</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12+</div>
+                    <div class="stat-label">Eleições na Europa</div>
+                    <div class="stat-sub">Ano mais denso da década</div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Comparativo Global de Modelos</h2>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <span class="chart-title">Acurácia por Metodologia</span>
+                        <span class="chart-badge">ML / DS</span>
+                    </div>
+                    <div class="chart-container"><canvas id="accuracyChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <span class="chart-title">Calendário Eleitoral 2026</span>
+                        <span class="chart-badge is-accent">Global</span>
+                    </div>
+                    <div class="chart-container"><canvas id="calendarChart"></canvas></div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Ranking de Consultorias</h2>
+            <div class="chart-card">
+                <table class="model-table">
+                    <thead>
+                        <tr><th>Consultoria</th><th>Metodologia Core</th><th>Acurácia</th><th>Complexidade</th><th>Interpretabilidade</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>FiveThirtyEight</strong></td><td>Bayesian + MCMC</td>
+                            <td><span class="score-cell">92%<span class="score-bar" style="width:64px;background:var(--vd-success)"></span></span></td>
+                            <td><span class="score-cell">95%<span class="score-bar" style="width:66px;background:var(--vd-cyan-500)"></span></span></td>
+                            <td><span class="score-cell">60%<span class="score-bar" style="width:42px;background:var(--vd-amber-500)"></span></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>YouGov</strong></td><td>MRP (Multilevel Regression)</td>
+                            <td><span class="score-cell">89%<span class="score-bar" style="width:62px;background:var(--vd-success)"></span></span></td>
+                            <td><span class="score-cell">90%<span class="score-bar" style="width:63px;background:var(--vd-cyan-500)"></span></span></td>
+                            <td><span class="score-cell">55%<span class="score-bar" style="width:38px;background:var(--vd-amber-500)"></span></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>The Economist</strong></td><td>Ensemble (25k simulações)</td>
+                            <td><span class="score-cell">88%<span class="score-bar" style="width:61px;background:var(--vd-success)"></span></span></td>
+                            <td><span class="score-cell">85%<span class="score-bar" style="width:60px;background:var(--vd-cyan-500)"></span></span></td>
+                            <td><span class="score-cell">65%<span class="score-bar" style="width:45px;background:var(--vd-amber-500)"></span></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Silver Bulletin</strong></td><td>Polling Average + Fundamentals</td>
+                            <td><span class="score-cell">87%<span class="score-bar" style="width:60px;background:var(--vd-success)"></span></span></td>
+                            <td><span class="score-cell">70%<span class="score-bar" style="width:49px;background:var(--vd-cyan-500)"></span></span></td>
+                            <td><span class="score-cell">80%<span class="score-bar" style="width:56px;background:var(--vd-amber-500)"></span></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ipsos</strong></td><td>KnowledgePanel Probability</td>
+                            <td><span class="score-cell">85%<span class="score-bar" style="width:59px;background:var(--vd-success)"></span></span></td>
+                            <td><span class="score-cell">75%<span class="score-bar" style="width:52px;background:var(--vd-cyan-500)"></span></span></td>
+                            <td><span class="score-cell">75%<span class="score-bar" style="width:52px;background:var(--vd-amber-500)"></span></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kantar</strong></td><td>Implicit Reaction Time</td>
+                            <td><span class="score-cell">82%<span class="score-bar" style="width:57px;background:var(--vd-success)"></span></span></td>
+                            <td><span class="score-cell">60%<span class="score-bar" style="width:42px;background:var(--vd-cyan-500)"></span></span></td>
+                            <td><span class="score-cell">85%<span class="score-bar" style="width:60px;background:var(--vd-amber-500)"></span></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: BRAZIL -->
+        <div id="brazil" class="tab-content">
+            <div class="page-head">
+                <span class="eyebrow">Brasil · Eleições Gerais 2026</span>
+                <h1>Câmara, Senado e modelagem nacional</h1>
+                <p>Composição legislativa, cenários para o Senado e adequação de metodologias ao sistema proporcional brasileiro.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card"><div class="stat-value">04/10</div><div class="stat-label">1º Turno</div><div class="stat-sub">2º turno: 25/10</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">513</div><div class="stat-label">Cadeiras Câmara</div><div class="stat-sub">Proporcional aberto</div></div>
+                <div class="stat-card"><div class="stat-value">81</div><div class="stat-label">Cadeiras Senado</div><div class="stat-sub">54 em disputa</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">PL</div><div class="stat-label">Maior Bancada</div><div class="stat-sub">87 deputados (17%)</div></div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Composição da Câmara dos Deputados</span><span class="chart-badge">Brasil</span></div>
+                    <div class="chart-container"><canvas id="camaraChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Cenários para o Senado 2026</span><span class="chart-badge is-accent">Projeção</span></div>
+                    <div style="padding: var(--space-5) 0;">
+                        <div class="progress-item">
+                            <div class="progress-label"><span>Direita + Centro-direita (maioria)</span><span>45%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 45%; background: var(--vd-danger);"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label"><span>Equilíbrio / Indefinido</span><span>30%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 30%; background: var(--vd-warning);"></div></div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-label"><span>Esquerda + Centro-esquerda (maioria)</span><span>25%</span></div>
+                            <div class="progress-bar"><div class="progress-fill" style="width: 25%; background: var(--vd-info);"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Modelagem para o Contexto Brasileiro</h2>
+            <div class="chart-card" style="margin-bottom: var(--space-5);">
+                <div class="chart-header"><span class="chart-title">Adequação de Metodologias por Casa Legislativa</span><span class="chart-badge">Análise VD</span></div>
+                <div class="chart-container"><canvas id="brasilModelsChart"></canvas></div>
+            </div>
+        </div>
+
+        <!-- TAB: USA -->
+        <div id="usa" class="tab-content">
+            <div class="page-head">
+                <span class="eyebrow">Estados Unidos · Midterms 2026</span>
+                <h1>Generic ballot e mapa do Senado</h1>
+                <p>Tendência do voto genérico, projeção de cadeiras e os assentos competitivos que decidem o controle do Senado.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card"><div class="stat-value">03/11</div><div class="stat-label">Election Day</div><div class="stat-sub">Midterms 2026</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">435</div><div class="stat-label">Cadeiras Câmara</div><div class="stat-sub">Todas em disputa</div></div>
+                <div class="stat-card"><div class="stat-value">35</div><div class="stat-label">Cadeiras Senado</div><div class="stat-sub">22 detidas por GOP</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">50%</div><div class="stat-label">Prob. Dem Senado</div><div class="stat-sub">The Economist</div></div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Generic Congressional Ballot Tracker</span><span class="chart-badge">Silver Bulletin</span></div>
+                    <div class="chart-container"><canvas id="genericBallotChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Senado EUA 2026 — Projeção de Cadeiras</span><span class="chart-badge is-accent">Simulação</span></div>
+                    <div class="chart-container"><canvas id="senateUsChart"></canvas></div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Mapa do Senado: Assentos em Disputa</h2>
+            <div class="chart-card">
+                <div class="legend-row">
+                    <span><i style="background: var(--vd-info);"></i> Dem (seguro)</span>
+                    <span><i style="background: var(--vd-danger);"></i> GOP (seguro)</span>
+                    <span><i style="background: var(--vd-warning);"></i> Competitivo</span>
+                </div>
+                <div class="senate-grid" id="senateGrid"></div>
+            </div>
+        </div>
+
+        <!-- TAB: EUROPE -->
+        <div id="europe" class="tab-content">
+            <div class="page-head">
+                <span class="eyebrow">Europa · Ano Eleitoral 2026</span>
+                <h1>Calendário e risco eleitoral europeu</h1>
+                <p>Doze eleições nacionais, fragmentação partidária e exposição a interferência externa no ano mais denso da década.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card"><div class="stat-value">12+</div><div class="stat-label">Países com Eleições</div><div class="stat-sub">Ano eleitoral denso</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">12 Abr</div><div class="stat-label">Hungria</div><div class="stat-sub">Orbán em desafio</div></div>
+                <div class="stat-card"><div class="stat-value">13 Set</div><div class="stat-label">Suécia</div><div class="stat-sub">Alerta cibersegurança</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">3 Out</div><div class="stat-label">Letônia</div><div class="stat-sub">Direita lidera</div></div>
+            </div>
+
+            <h2 class="section-title">Calendário Eleitoral Europeu 2026</h2>
+            <div class="chart-card">
+                <div class="chart-container" style="height: 400px;"><canvas id="europeCalendarChart"></canvas></div>
+            </div>
+
+            <h2 class="section-title">Destaques Estratégicos</h2>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Fragmentação Partidária por País</span><span class="chart-badge">Indicador</span></div>
+                    <div class="chart-container"><canvas id="fragmentationChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Risco de Interferência Externa</span><span class="chart-badge is-accent">Segurança</span></div>
+                    <div class="chart-container"><canvas id="riskChart"></canvas></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: MODELS -->
+        <div id="models" class="tab-content">
+            <div class="page-head">
+                <span class="eyebrow">Metodologia · Machine Learning</span>
+                <h1>Modelos preditivos comparados</h1>
+                <p>Radar de metodologias, performance de algoritmos e o dilema entre abordagens bayesianas e frequentistas.</p>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-card"><div class="stat-value">MCMC</div><div class="stat-label">FiveThirtyEight</div><div class="stat-sub">40k+ simulações</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">MRP</div><div class="stat-label">YouGov</div><div class="stat-sub">100k entrevistas</div></div>
+                <div class="stat-card"><div class="stat-value">25k</div><div class="stat-label">The Economist</div><div class="stat-sub">Simulações ensemble</div></div>
+                <div class="stat-card is-accent"><div class="stat-value">BERT</div><div class="stat-label">Sentiment Analysis</div><div class="stat-sub">84,6% acurácia</div></div>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Radar: Comparativo de Metodologias</span><span class="chart-badge">ML / DS</span></div>
+                    <div class="chart-container"><canvas id="radarChart"></canvas></div>
+                </div>
+                <div class="chart-card">
+                    <div class="chart-header"><span class="chart-title">Performance de Algoritmos de ML</span><span class="chart-badge is-accent">Estudo Comparativo</span></div>
+                    <div class="chart-container"><canvas id="mlPerformanceChart"></canvas></div>
+                </div>
+            </div>
+
+            <h2 class="section-title">Dilema: Bayesianos vs. Frequentistas</h2>
+            <div class="chart-card" style="margin-bottom: var(--space-5);">
+                <table class="model-table">
+                    <thead>
+                        <tr><th>Dimensão</th><th>Bayesiano (FiveThirtyEight)</th><th>Frequentista (MRP / Ensemble)</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>Interpretação de Probabilidade</strong></td><td>Grau de crença subjetivo</td><td>Frequência de longo prazo</td></tr>
+                        <tr><td><strong>Incorporação de Prior</strong></td><td>Informação histórica integrada</td><td>Dados observados apenas</td></tr>
+                        <tr><td><strong>Incerteza</strong></td><td>Distribuição posterior completa</td><td>Intervalos de confiança</td></tr>
+                        <tr><td><strong>Computacional</strong></td><td>Intensivo (MCMC, Stan)</td><td>Menos intensivo</td></tr>
+                        <tr><td><strong>Pequenas Amostras</strong></td><td>Superior (priors informativos)</td><td>Menos robusto</td></tr>
+                        <tr><td><strong>Objetividade</strong></td><td>Subjetiva (escolha de priors)</td><td>Mais objetiva</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p><strong>VotoData · Research Unit</strong> &nbsp;|&nbsp; <span class="mono">Maio 2026</span></p>
+            <p style="margin-top: var(--space-2);">Dashboard interativo para análise de eleições legislativas 2026 — Brasil, EUA e Europa. Dados de fontes públicas oficiais.</p>
+        </footer>
+    </main>
+
+    <script>
+        // ---- Design system palette ----
+        const VD = {
+            cyan: '#06B6D4', cyan400: '#22D0EE', cyan300: '#67E3F9', cyan200: '#A5F0FC', cyan100: '#CFF9FE',
+            amber: '#F59E0B', amber400: '#FBBF24', amber300: '#FCD34D',
+            blue: '#3B82F6', blue700: '#1D4ED8', blue300: '#93C5FD',
+            green: '#22C55E', violet: '#A78BFA', pink: '#F472B6', teal: '#2DD4BF', yellow: '#FACC15',
+            danger: '#EF4444', danger300: '#FCA5A5', danger700: '#B91C1C',
+            ink700: '#222A3D', ink400: '#64748B', ink300: '#94A3B8', text: '#F8FAFC'
+        };
+
+        function showTab(tabId, btn) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            if (btn) btn.classList.add('active');
+            // charts created while their tab was hidden render at 0×0 — resize once visible
+            requestAnimationFrame(() => {
+                Object.values(Chart.instances).forEach(c => { try { c.resize(); } catch (e) {} });
+            });
+        }
+
+        // Chart.js defaults — design system
+        Chart.defaults.animation = false;            // paint final state immediately (print/PDF safe)
+        Chart.defaults.color = VD.ink300;
+        Chart.defaults.font.family = "'Inter', system-ui, sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.borderColor = VD.ink700;
+        Chart.defaults.plugins.legend.labels.usePointStyle = true;
+        Chart.defaults.plugins.legend.labels.boxWidth = 8;
+        Chart.defaults.plugins.legend.labels.padding = 14;
+        Chart.defaults.plugins.tooltip.backgroundColor = '#131B2E';
+        Chart.defaults.plugins.tooltip.borderColor = VD.ink700;
+        Chart.defaults.plugins.tooltip.borderWidth = 1;
+        Chart.defaults.plugins.tooltip.titleColor = VD.text;
+        Chart.defaults.plugins.tooltip.bodyColor = VD.ink300;
+        Chart.defaults.plugins.tooltip.padding = 10;
+        Chart.defaults.plugins.tooltip.cornerRadius = 8;
+
+        // 1. Accuracy
+        new Chart(document.getElementById('accuracyChart'), {
+            type: 'bar',
+            data: {
+                labels: ['Bayesian (MCMC)', 'MRP', 'Ensemble', 'Polling Avg', 'Probability Panel', 'Implicit Reaction'],
+                datasets: [{ label: 'Acurácia Estimada (%)', data: [92, 89, 88, 87, 85, 82],
+                    backgroundColor: [VD.cyan, VD.cyan400, VD.cyan300, VD.teal, VD.cyan200, VD.cyan100], borderRadius: 6 }]
+            },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 100, grid: { color: VD.ink700 } }, x: { grid: { display: false } } } }
+        });
+
+        // 2. Calendar (global)
+        new Chart(document.getElementById('calendarChart'), {
+            type: 'doughnut',
+            data: { labels: ['Américas', 'Europa', 'Ásia', 'África', 'Oceania'],
+                datasets: [{ data: [5, 12, 8, 15, 5], backgroundColor: [VD.amber, VD.cyan, VD.blue, VD.violet, VD.teal], borderWidth: 2, borderColor: '#1A2336' }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '62%', plugins: { legend: { position: 'right' } } }
+        });
+
+        // 3. Câmara (Brazil parties)
+        new Chart(document.getElementById('camaraChart'), {
+            type: 'doughnut',
+            data: { labels: ['PL', 'PT', 'União Brasil', 'PP', 'Republicanos', 'PSD', 'MDB', 'Outros'],
+                datasets: [{ data: [87, 67, 59, 51, 44, 46, 43, 116],
+                    backgroundColor: [VD.blue, VD.danger, VD.cyan, VD.cyan400, VD.amber, VD.pink, VD.violet, VD.ink400],
+                    borderWidth: 2, borderColor: '#1A2336' }] },
+            options: { responsive: true, maintainAspectRatio: false, cutout: '58%',
+                plugins: { legend: { position: 'right', labels: { boxWidth: 8, font: { size: 11 } } } } }
+        });
+
+        // 4. Brasil models radar
+        new Chart(document.getElementById('brasilModelsChart'), {
+            type: 'radar',
+            data: { labels: ['Granularidade', 'Robustez Temporal', 'Interpretabilidade', 'Custo', 'Adaptação BR'],
+                datasets: [
+                    { label: 'Bayesiano (Senado)', data: [70, 90, 60, 40, 85], borderColor: VD.cyan, backgroundColor: 'rgba(6,182,212,0.18)', pointBackgroundColor: VD.cyan },
+                    { label: 'MRP (Câmara)', data: [90, 60, 55, 30, 70], borderColor: VD.amber, backgroundColor: 'rgba(245,158,11,0.18)', pointBackgroundColor: VD.amber },
+                    { label: 'Sentiment Analysis', data: [85, 40, 45, 90, 60], borderColor: VD.green, backgroundColor: 'rgba(34,197,94,0.16)', pointBackgroundColor: VD.green }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                scales: { r: { beginAtZero: true, max: 100, angleLines: { color: VD.ink700 }, grid: { color: VD.ink700 },
+                    ticks: { stepSize: 20, backdropColor: 'transparent', color: VD.ink400 }, pointLabels: { color: VD.ink300 } } } }
+        });
+
+        // 5. Generic ballot
+        const months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov'];
+        new Chart(document.getElementById('genericBallotChart'), {
+            type: 'line',
+            data: { labels: months, datasets: [
+                { label: 'Democratas', data: [null, null, 4.5, 5.2, 5.8, 6.1, null, null, null, null, null], borderColor: VD.blue, backgroundColor: 'rgba(59,130,246,0.12)', fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: VD.blue },
+                { label: 'Republicanos', data: [null, null, -4.5, -5.2, -5.8, -6.1, null, null, null, null, null], borderColor: VD.danger, backgroundColor: 'rgba(239,68,68,0.12)', fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: VD.danger }
+            ] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'top' } },
+                scales: { y: { grid: { color: VD.ink700 }, title: { display: true, text: 'Vantagem (pontos)', color: VD.ink400 } }, x: { grid: { display: false } } } }
+        });
+
+        // 6. Senate US
+        new Chart(document.getElementById('senateUsChart'), {
+            type: 'bar',
+            data: { labels: ['Dem (seguro)', 'Dem (provável)', 'Dem (inclinado)', 'Toss-up', 'Rep (inclinado)', 'Rep (provável)', 'Rep (seguro)'],
+                datasets: [{ label: 'Cadeiras', data: [42, 3, 4, 1, 3, 1, 41],
+                    backgroundColor: [VD.blue700, VD.blue, VD.blue300, VD.amber, VD.danger300, VD.danger, VD.danger700], borderRadius: 4 }] },
+            options: { responsive: true, maintainAspectRatio: false, indexAxis: 'y', plugins: { legend: { display: false } },
+                scales: { x: { beginAtZero: true, max: 50, grid: { color: VD.ink700 } }, y: { grid: { display: false } } } }
+        });
+
+        // 7. Europe calendar
+        new Chart(document.getElementById('europeCalendarChart'), {
+            type: 'bar',
+            data: { labels: ['Portugal', 'Eslovênia', 'Dinamarca', 'Hungria', 'Bulgária', 'Chipre', 'Malta', 'Armênia', 'Suécia', 'Letônia', 'Rússia'],
+                datasets: [{ label: 'Risco de Volatilidade', data: [30, 65, 45, 80, 75, 50, 35, 70, 55, 60, 90],
+                    backgroundColor: [VD.cyan, VD.amber, VD.cyan300, VD.amber, VD.amber, VD.cyan400, VD.cyan300, VD.amber, VD.amber400, VD.amber, VD.danger], borderRadius: 6 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 100, grid: { color: VD.ink700 } }, x: { grid: { display: false } } } }
+        });
+
+        // 8. Fragmentation
+        new Chart(document.getElementById('fragmentationChart'), {
+            type: 'polarArea',
+            data: { labels: ['Hungria', 'Eslovênia', 'Bulgária', 'Suécia', 'Letônia', 'Dinamarca'],
+                datasets: [{ data: [35, 75, 85, 65, 55, 45],
+                    backgroundColor: ['rgba(245,158,11,0.7)', 'rgba(6,182,212,0.7)', 'rgba(239,68,68,0.65)', 'rgba(59,130,246,0.7)', 'rgba(167,139,250,0.7)', 'rgba(45,212,191,0.7)'], borderWidth: 0 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right' } },
+                scales: { r: { beginAtZero: true, max: 100, grid: { color: VD.ink700 }, angleLines: { color: VD.ink700 }, ticks: { display: false } } } }
+        });
+
+        // 9. Risk bubble
+        new Chart(document.getElementById('riskChart'), {
+            type: 'bubble',
+            data: { datasets: [{ label: 'Risco × Impacto', data: [
+                { x: 80, y: 90, r: 15, country: 'Rússia' }, { x: 70, y: 75, r: 12, country: 'Hungria' },
+                { x: 60, y: 60, r: 10, country: 'Bulgária' }, { x: 50, y: 70, r: 10, country: 'Eslovênia' },
+                { x: 40, y: 55, r: 8, country: 'Suécia' }, { x: 30, y: 45, r: 8, country: 'Letônia' },
+                { x: 20, y: 40, r: 6, country: 'Dinamarca' }, { x: 10, y: 30, r: 6, country: 'Portugal' }
+            ], backgroundColor: 'rgba(6,182,212,0.55)', borderColor: VD.cyan300, borderWidth: 1 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false },
+                tooltip: { callbacks: { label: (ctx) => ctx.raw.country + ': Risco ' + ctx.raw.x + ', Impacto ' + ctx.raw.y } } },
+                scales: { x: { title: { display: true, text: 'Risco de Interferência', color: VD.ink400 }, min: 0, max: 100, grid: { color: VD.ink700 } },
+                    y: { title: { display: true, text: 'Impacto Geopolítico', color: VD.ink400 }, min: 0, max: 100, grid: { color: VD.ink700 } } } }
+        });
+
+        // 10. Radar models
+        new Chart(document.getElementById('radarChart'), {
+            type: 'radar',
+            data: { labels: ['Acurácia', 'Granularidade', 'Velocidade', 'Custo-Benefício', 'Escalabilidade', 'Interpretabilidade'],
+                datasets: [
+                    { label: 'Bayesian (FiveThirtyEight)', data: [92, 85, 70, 60, 75, 60], borderColor: VD.cyan, backgroundColor: 'rgba(6,182,212,0.18)', pointBackgroundColor: VD.cyan },
+                    { label: 'MRP (YouGov)', data: [89, 95, 55, 50, 90, 55], borderColor: VD.amber, backgroundColor: 'rgba(245,158,11,0.18)', pointBackgroundColor: VD.amber },
+                    { label: 'Sentiment Analysis', data: [75, 80, 95, 90, 85, 45], borderColor: VD.green, backgroundColor: 'rgba(34,197,94,0.16)', pointBackgroundColor: VD.green }
+                ] },
+            options: { responsive: true, maintainAspectRatio: false,
+                scales: { r: { beginAtZero: true, max: 100, angleLines: { color: VD.ink700 }, grid: { color: VD.ink700 },
+                    ticks: { stepSize: 20, backdropColor: 'transparent', color: VD.ink400 }, pointLabels: { color: VD.ink300 } } } }
+        });
+
+        // 11. ML performance
+        new Chart(document.getElementById('mlPerformanceChart'), {
+            type: 'bar',
+            data: { labels: ['SVM', 'Logistic Reg.', 'Random Forest', 'Naive Bayes', 'Decision Tree', 'LSTM', 'BERT'],
+                datasets: [{ label: 'Acurácia (%)', data: [77.55, 75.28, 72.69, 61.10, 66.61, 84.6, 87.6],
+                    backgroundColor: [VD.blue, VD.blue300, VD.teal, VD.cyan200, VD.cyan100, VD.amber, VD.cyan], borderRadius: 6 }] },
+            options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, max: 100, grid: { color: VD.ink700 } }, x: { grid: { display: false } } } }
+        });
+
+        // Senate grid
+        const senateGrid = document.getElementById('senateGrid');
+        const seatConfig = [
+            'd','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d',
+            'd','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d','d',
+            'd','d','d','d','d','toss','r','r','r','r','r','r','r','r','r','r','r','r','r','r',
+            'r','r','r','r','r','r','r','r','r','r','r','r','r','r','r','r','r','r','r','r',
+            'r','r','r','r','r','r','r','r','r','r','r','r','r','r','r'
+        ];
+        seatConfig.forEach(seat => {
+            const div = document.createElement('div');
+            div.className = `senate-seat seat-${seat}`;
+            div.textContent = seat === 'd' ? 'D' : seat === 'r' ? 'R' : '?';
+            senateGrid.appendChild(div);
+        });
+    </script>
+</body>
+</html>
